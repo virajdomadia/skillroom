@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273 64" width="273" height="64">
+<g><rect width="64" height="64" rx="18" fill="#3E6B48"/>
+<rect x="16" y="12" width="32" height="44" rx="6" fill="#CFE0D2"/>
+<path d="M28 24 l14 10 l-14 10 z" fill="#1E2A24"/>
+<rect x="16" y="48" width="20" height="8" rx="0" fill="#F4B183"/></g>
+<text x="78" y="45" font-family="'Onest', system-ui, sans-serif" font-weight="700" font-size="34" letter-spacing="-0.02em" fill="#1E2A24">Skillroom</text>
+</svg>
