@@ -2,7 +2,7 @@
 
 **Learn from people who do it.** Creators upload video courses; students buy or subscribe, resume where they left off, pass quizzes and earn a certificate.
 
-> Status: in progress — planning and design stage. One of six portfolio projects by [Viraj Domadia](https://virajdomadia.vercel.app). Will go live at `skillroom.virajdomadia.com`.
+> Status: in progress — planning and design stage. One of six portfolio projects by [Viraj Domadia](https://virajdomadia.vercel.app). **Live (landing page):** https://skillroom-viraj.vercel.app — will move to `skillroom.virajdomadia.com` later.
 
 ## What it proves
 Video streaming · subscriptions · creator payouts · three-role RBAC
