@@ -1,0 +1,731 @@
+<title>Skillroom Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Caveat:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap">
+<style>
+/* ---------- shell ---------- */
+:root{--sh-bg:#F5F5F2;--sh-ink:#17181A;--sh-muted:#6B6C66;--sh-line:#DCDCD5;--sh-panel:#FFFFFF;--sh-acc:#3E6B48;
+  --font:'Onest',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sh-bg:#121311;--sh-ink:#EEEEE8;--sh-muted:#A2A399;--sh-line:#2B2C28;--sh-panel:#1B1C19;--sh-acc:#8FB39A}}
+:root[data-theme="dark"]{--sh-bg:#121311;--sh-ink:#EEEEE8;--sh-muted:#A2A399;--sh-line:#2B2C28;--sh-panel:#1B1C19;--sh-acc:#8FB39A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sh-bg);color:var(--sh-ink);font-family:var(--font);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1480px,100% - 32px);margin-inline:auto;padding-block:20px 60px}
+h1.t{margin:0;font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.05;text-wrap:balance}
+.lede{color:var(--sh-muted);max-width:78ch;margin:10px 0 0}
+.lede b{color:var(--sh-ink);font-weight:600}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;gap:8px;flex-wrap:wrap;background:var(--sh-bg);padding-block:12px;margin-top:16px;border-bottom:1px solid var(--sh-line)}
+.tab{appearance:none;border:1px solid var(--sh-line);background:var(--sh-panel);color:var(--sh-ink);font:600 13px/1 var(--font);padding:10px 14px;border-radius:999px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.tab kbd{font-family:var(--mono);font-size:11px;padding:2px 6px;border:1px solid var(--sh-line);border-radius:4px;color:var(--sh-muted)}
+.tab i{width:12px;height:12px;border-radius:50%;background:var(--sw);border:1px solid rgba(0,0,0,.15)}
+.tab[aria-selected="true"]{background:var(--sh-ink);color:var(--sh-bg);border-color:var(--sh-ink)}
+.tab[aria-selected="true"] kbd{color:var(--sh-bg);border-color:transparent;background:rgba(255,255,255,.18)}
+.tab:focus-visible,button:focus-visible{outline:3px solid var(--sh-acc);outline-offset:2px}
+.panel{display:none}.panel.on{display:block}
+.dhead{display:grid;grid-template-columns:1fr auto;gap:14px 32px;align-items:end;padding-block:18px 12px}
+.dhead h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em}
+.dhead p{margin:4px 0 0;color:var(--sh-muted);max-width:90ch}
+.dhead .demo{font-family:var(--mono);font-size:12px;color:var(--sh-muted);text-align:right}
+.dhead .demo b{color:var(--sh-ink);font-weight:500;display:block}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:20px;align-items:start;margin-top:18px}
+.row>*{min-width:0}
+.row.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:1100px){.row,.row.two{grid-template-columns:1fr}.dhead{grid-template-columns:1fr}.dhead .demo{text-align:left}}
+.fl{font-family:var(--mono);font-size:11px;color:var(--sh-muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.06em}
+.scaler{position:relative;overflow:hidden}
+.scaled{transform-origin:top left;width:1280px}
+.phone-scaler{justify-self:start}
+.phone-scaler .scaled{width:410px}
+.desktop{width:1280px;min-height:860px;border:1px solid var(--sh-line);box-shadow:0 30px 60px -30px rgba(0,0,0,.35);overflow:hidden;position:relative}
+.phone{width:390px;height:844px;border-radius:44px;border:10px solid #111;background:#111;overflow:hidden;position:relative;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.phone .screen{position:absolute;inset:0;border-radius:34px;overflow:hidden;overflow-y:auto;scrollbar-width:none}
+.phone .screen::-webkit-scrollbar{display:none}
+.phone .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:30px;border-radius:20px;background:#111;z-index:5}
+.strip{margin-top:22px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.tools button{font:600 12px var(--font);padding:8px 12px;border:1px solid var(--sh-line);background:var(--sh-panel);color:var(--sh-ink);cursor:pointer;border-radius:999px}
+.tools button:hover{border-color:var(--sh-ink)}
+.credits{margin-top:28px;font-size:13px;color:var(--sh-muted);max-width:100ch}
+.credits a{color:inherit}
+
+/* ---------- stage basics shared by all directions ---------- */
+.stage{position:relative;font-family:var(--bodyfont);color:var(--ink);background:var(--bg);min-height:100%}
+.stage img{display:block;width:100%;height:100%;object-fit:cover}
+.stage ::selection{background:var(--sel);color:var(--sel-ink)}
+.stage p,.stage h1,.stage h2,.stage h3,.stage h4{margin:0}
+.stage h1,.stage h2,.stage h3{font-family:var(--headfont);font-weight:var(--headwt);letter-spacing:var(--headls);line-height:var(--headlh);text-wrap:balance}
+.stage button,.stage .btn{font-family:var(--bodyfont);cursor:pointer}
+.stage .ph{background:var(--tile)}
+.stage .num{font-variant-numeric:tabular-nums}
+.stage .dsk{width:1280px;min-height:860px}
+.stage .mob{width:390px;min-height:844px;padding-top:44px}
+
+/* ---------- motion strip (shared markup, direction-styled) ---------- */
+.mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+@media (max-width:1100px){.mstrip{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.mstrip{grid-template-columns:1fr}}
+.mcell{border:1px solid var(--sh-line);background:var(--sh-panel);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.mcell .mt{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--sh-line);font-size:12.5px;font-weight:700}
+.mcell .mt span{font-family:var(--mono);font-size:10.5px;color:var(--sh-muted);font-weight:500}
+.mcell .mt button{font:600 11px var(--font);padding:5px 9px;border:1px solid var(--sh-line);background:transparent;color:var(--sh-ink);border-radius:999px;cursor:pointer}
+.mcell .mb{height:210px;position:relative;overflow:hidden}
+.mcell .mb .stage{height:100%}
+.mcell .md{padding:8px 12px;font-size:12px;color:var(--sh-muted);border-top:1px solid var(--sh-line)}
+
+/* ---------- motion primitives ---------- */
+@keyframes develop{0%{filter:blur(22px) saturate(.2) brightness(1.15)}60%{filter:blur(6px) saturate(.6) brightness(1.05)}100%{filter:blur(0) saturate(1) brightness(1)}}
+.dev-img{filter:blur(22px) saturate(.2) brightness(1.15)}
+.dev-img.go{animation:develop .9s cubic-bezier(.2,.7,.2,1) forwards}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-family:var(--labelfont);font-size:11px;font-weight:600;border:1px solid var(--line);color:var(--muted);background:transparent;transition:background .3s,color .3s,border-color .3s}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .3s}
+.chip.on{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.chip.on i{background:var(--acc-ink)}
+.chip.run i{animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rise{opacity:0}.rise.go{animation:rise .5s .15s cubic-bezier(.2,.8,.2,1) forwards}
+/* resume glide */
+.track{position:relative;height:6px;border-radius:3px;background:var(--trk)}
+.track .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc);border-radius:3px}
+.track .head{position:absolute;top:50%;left:0;width:16px;height:16px;border-radius:50%;background:var(--acc);border:3px solid var(--head-ring);transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.track.go .fill{animation:fillTo .6s .2s cubic-bezier(.2,.8,.2,1) forwards}
+.track.go .head{animation:headTo .7s .2s cubic-bezier(.34,1.4,.64,1) forwards}
+@keyframes fillTo{to{width:var(--to)}}
+@keyframes headTo{to{left:var(--to)}}
+.toast{position:absolute;left:50%;top:-58px;transform:translate(-50%,20px);opacity:0;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--tr,10px);background:var(--toast-bg);color:var(--toast-ink);font-family:var(--labelfont);font-size:12.5px;font-weight:600;white-space:nowrap;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.toast.go{animation:toastIn .5s .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes toastIn{to{opacity:1;transform:translate(-50%,0)}}
+.toast .ring{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--acc) var(--p,0%),transparent 0);position:relative}
+.toast .ring::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--toast-bg)}
+.toast.go .ring{animation:ringDown 3s 1.3s linear forwards}
+@keyframes ringDown{from{--p:0%}to{--p:100%}}
+@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+/* curriculum draw */
+.cdraw{position:relative}
+.cdraw .line{position:absolute;left:11px;top:14px;bottom:14px;width:2px;background:var(--line);overflow:hidden}
+.cdraw .line i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--acc)}
+.cdraw.go .line i{animation:drawDown .8s .1s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes drawDown{to{height:100%}}
+.cdraw .crow{display:flex;align-items:center;gap:12px;padding:8px 0 8px 0;opacity:0}
+.cdraw.go .crow{animation:rise .4s cubic-bezier(.2,.8,.2,1) forwards}
+.cdraw.go .crow:nth-child(2){animation-delay:.1s}.cdraw.go .crow:nth-child(3){animation-delay:.25s}.cdraw.go .crow:nth-child(4){animation-delay:.4s}.cdraw.go .crow:nth-child(5){animation-delay:.55s}.cdraw.go .crow:nth-child(6){animation-delay:.7s}
+.cdraw .dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;flex:none;position:relative;z-index:1}
+.cdraw .dot svg{width:12px;height:12px;stroke:var(--acc);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20}
+.cdraw.go .dot.done{border-color:var(--acc)}
+.cdraw.go .dot.done svg{animation:tick .4s .6s ease-out forwards}
+@keyframes tick{to{stroke-dashoffset:0}}
+/* certificate print */
+.cslot{position:relative;overflow:hidden}
+.ccard{transform:translateY(105%);background:var(--cert-bg);color:var(--cert-ink);border:1px solid var(--line);border-radius:var(--tr,10px);padding:16px 18px;position:relative}
+.cslot.go .ccard{animation:feed .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes feed{to{transform:none}}
+.seal{position:absolute;right:14px;top:12px;width:54px;height:54px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;font-family:var(--labelfont);font-size:9px;font-weight:800;text-align:center;line-height:1.05;transform:scale(1.8) rotate(-8deg);opacity:0}
+.cslot.go .seal{animation:stamp .45s .9s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes stamp{to{transform:scale(1) rotate(-6deg);opacity:1}}
+.cname{position:relative;display:inline-block}
+.cname::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--acc)}
+.cslot.go .cname::after{animation:under .6s 1.2s ease-out forwards}
+@keyframes under{to{width:100%}}
+/* ladder */
+.ladder{display:grid;gap:10px}
+.lrow{display:grid;grid-template-columns:44px 1fr 62px;align-items:center;gap:10px;font-family:var(--labelfont);font-size:11.5px}
+.lrow .bar{height:12px;border-radius:3px;background:var(--trk);display:grid;grid-template-columns:repeat(20,1fr);gap:2px;padding:2px}
+.lrow .bar i{background:var(--line);opacity:.25;border-radius:1px;transition:background .2s,opacity .2s}
+.lrow .bar i.on{background:var(--acc);opacity:1}
+.lrow .kb{text-align:right;color:var(--muted)}
+/* chapter count */
+.count{display:inline-flex;height:1em;line-height:1;overflow:hidden;font-variant-numeric:tabular-nums}
+.count .col{display:flex;flex-direction:column;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.count .col span{height:1em;display:block}
+/* spring pop */
+.ring{position:relative;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--acc) var(--rp,0%),var(--trk) 0);display:grid;place-items:center;transition:--rp 1s cubic-bezier(.34,1.56,.64,1)}
+@property --rp{syntax:'<percentage>';inherits:false;initial-value:0%}
+.ring::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--panel)}
+.ring b{position:relative;z-index:1;font-family:var(--labelfont);font-size:13px}
+.pop{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--acc-ink);transform:scale(0)}
+.pop.go{animation:popIn .5s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes popIn{to{transform:scale(1)}}
+/* poster scrub */
+.scrub{position:relative;overflow:hidden}
+.scrub .fr{position:absolute;inset:0;opacity:0}
+.scrub .fr.on{opacity:1}
+.scrub .hair{position:absolute;left:0;bottom:0;height:3px;background:var(--acc);width:0}
+@media (prefers-reduced-motion: reduce){
+  .dev-img,.dev-img.go{animation:none;filter:none}
+  .rise,.cdraw .crow{opacity:1;animation:none!important}
+  .track.go .fill{animation:none;width:var(--to)}.track.go .head{animation:none;left:var(--to)}
+  .toast.go{animation:none;opacity:1;transform:translate(-50%,0)}.toast.go .ring{animation:none}
+  .cdraw.go .line i{animation:none;height:100%}.cdraw.go .dot.done svg{animation:none;stroke-dashoffset:0}
+  .cslot.go .ccard{animation:none;transform:none}.cslot.go .seal{animation:none;transform:scale(1) rotate(-6deg);opacity:1}.cslot.go .cname::after{animation:none;width:100%}
+  .count .col{transition:none}.ring{transition:none}.pop.go{animation:none;transform:scale(1)}
+  .chip.run i{animation:none}
+}
+</style>
+<style>
+/* =============== C · Notebook =============== */
+.d-c{--bg:#FBF9F3;--panel:#FFFFFF;--tile:#EFEBE0;--ink:#1C2833;--ink2:#3E4A55;--muted:#7A8590;--line:#CBD6E0;--rule:#D9E3EC;--margin:#E0655F;--acc:#1C2833;--acc-ink:#FFFFFF;--hl:#FFE86B;--sel:#FFE86B;--sel-ink:#1C2833;--trk:#D9E3EC;--head-ring:#FBF9F3;--toast-bg:#1C2833;--toast-ink:#fff;--cert-bg:#FFFDF5;--cert-ink:#1C2833;--tr:4px;
+  --bodyfont:'Onest',system-ui,sans-serif;--headfont:'Fraunces',Georgia,serif;--labelfont:'Caveat',cursive;--headwt:600;--headls:-.02em;--headlh:1.06;
+  background-image:repeating-linear-gradient(transparent 0 27px,var(--rule) 27px 28px);background-color:var(--bg)}
+.d-c .c-page{position:relative;padding:0 48px 40px 96px;min-height:860px}
+.d-c .c-page::before{content:"";position:absolute;left:72px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.d-c .c-mob::before{left:36px}
+.d-c .c-nav{display:flex;align-items:center;justify-content:space-between;height:56px;font-size:14px}
+.d-c .c-logo{font-family:'Fraunces';font-weight:700;font-size:22px;letter-spacing:-.02em;font-variation-settings:'opsz' 144}
+.d-c .c-logo em{font-family:'Caveat';font-size:16px;color:var(--margin);margin-left:8px;font-style:normal}
+.d-c .c-nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;color:var(--ink2);font-weight:600}
+.d-c .c-course{display:grid;grid-template-columns:1fr 330px;gap:48px;align-items:start;margin-top:14px}
+.d-c .c-course h1{font-size:52px;font-variation-settings:'opsz' 144;line-height:1.05}
+.d-c .c-hand{font-family:'Caveat';font-size:24px;color:var(--margin);line-height:1.1}
+.d-c .c-sub{font-size:18px;color:var(--ink2);margin-top:10px;max-width:56ch;line-height:28px}
+.d-c .c-poster{margin-top:24px;position:relative;padding:12px 12px 32px;background:#fff;box-shadow:0 6px 24px -12px rgba(0,0,0,.35);transform:rotate(-1deg);width:640px}
+.d-c .c-poster .im{aspect-ratio:16/10;overflow:hidden;background:var(--tile)}
+.d-c .c-poster .cap{font-family:'Caveat';font-size:20px;color:var(--ink2);position:absolute;left:12px;bottom:4px}
+.d-c .c-tape{position:absolute;width:90px;height:24px;background:rgba(255,232,107,.8);transform:rotate(-4deg);top:-10px;left:40px}
+.d-c .c-tape.r{left:auto;right:40px;transform:rotate(5deg)}
+.d-c .c-toc{margin-top:28px}
+.d-c .c-toc h2{font-size:26px;font-variation-settings:'opsz' 96}
+.d-c .c-toc .sec{font-family:'Caveat';font-size:22px;color:var(--margin);margin:14px 0 2px}
+.d-c .c-toc .li{display:flex;align-items:baseline;gap:8px;font-size:16px;line-height:28px}
+.d-c .c-toc .li .dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-6px)}
+.d-c .c-toc .li .pg{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+.d-c .c-toc .li .hl{background:linear-gradient(transparent 45%,var(--hl) 45% 90%,transparent 90%)}
+.d-c .c-toc .li .pv{font-family:'Caveat';font-size:18px;color:var(--margin)}
+.d-c .c-toc .li .tk{width:18px;color:var(--ink);font-weight:800}
+.d-c .c-sticky{background:#FFF3A3;padding:22px 22px 26px;transform:rotate(1.5deg);box-shadow:0 10px 24px -14px rgba(0,0,0,.45);position:sticky;top:24px}
+.d-c .c-sticky .pr{font-family:'Fraunces';font-size:40px;font-weight:700;letter-spacing:-.03em}
+.d-c .c-sticky .pr small{font-family:'Caveat';font-size:18px;font-weight:500;margin-left:6px}
+.d-c .c-btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:13px 16px;background:var(--ink);color:#fff;font-weight:700;font-size:15px;border-radius:4px;margin-top:14px;border:0}
+.d-c .c-btn.line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.d-c .c-sticky ul{list-style:none;padding:0;margin:14px 0 0;font-size:14px;line-height:1.9;color:var(--ink2)}
+.d-c .c-sticky ul li::before{content:"— ";color:var(--margin)}
+.d-c .c-index{margin-top:22px;background:#fff;border:1px solid var(--line);padding:14px 16px;position:relative}
+.d-c .c-index::before{content:"";position:absolute;left:0;right:0;top:34px;height:1px;background:var(--margin);opacity:.5}
+.d-c .c-index .av{width:56px;height:56px;border-radius:4px;overflow:hidden;float:left;margin-right:12px}
+.d-c .c-index b{font-family:'Fraunces';font-size:17px;display:block}
+.d-c .c-index span{font-size:13px;color:var(--muted)}
+.d-c .c-index p{font-size:13.5px;color:var(--ink2);margin-top:8px;line-height:1.5;clear:both}
+/* C phone */
+.d-c .c-mob{padding:0 20px 30px 52px;min-height:844px}
+.d-c .c-mob .c-nav{height:50px}
+.d-c .c-mob h1{font-size:34px;font-variation-settings:'opsz' 144;margin-top:8px}
+.d-c .c-mob .c-hand{font-size:22px}
+.d-c .c-tabs{display:flex;gap:6px;margin-top:16px}
+.d-c .c-tabs span{font-family:'Caveat';font-size:18px;padding:4px 12px;border:1.5px solid var(--ink);border-bottom:0;border-radius:6px 6px 0 0;background:#fff}
+.d-c .c-tabs span.on{background:var(--hl)}
+.d-c .c-entry{border-top:1.5px solid var(--ink);padding:12px 0;display:grid;grid-template-columns:92px 1fr;gap:12px}
+.d-c .c-entry .im{aspect-ratio:4/3;overflow:hidden;background:var(--tile);transform:rotate(-2deg);box-shadow:0 4px 12px -6px rgba(0,0,0,.4);border:4px solid #fff}
+.d-c .c-entry b{font-family:'Fraunces';font-size:17px;display:block;line-height:1.15}
+.d-c .c-entry span{font-size:12.5px;color:var(--muted)}
+.d-c .c-entry .pr{font-family:'Caveat';font-size:20px;color:var(--margin)}
+/* C player */
+.d-c .c-play{display:grid;grid-template-columns:1fr 320px;gap:36px;padding:0 48px 40px 96px;min-height:860px;position:relative}
+.d-c .c-play::before{content:"";position:absolute;left:72px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.d-c .c-vwrap{margin-top:8px;position:relative;padding:10px;background:#fff;box-shadow:0 8px 28px -14px rgba(0,0,0,.4)}
+.d-c .c-vid{aspect-ratio:16/9;background:#0E141A;position:relative;overflow:hidden}
+.d-c .c-vid img{opacity:.85}
+.d-c .c-vid .ctl{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff}
+.d-c .c-vid .ctl .ic{display:flex;gap:16px;font-size:12.5px;margin-top:10px;font-family:'Onest'}
+.d-c .c-vid .ctl .ic b{padding:2px 7px;border:1px solid rgba(255,255,255,.4);border-radius:3px;font-weight:600}
+.d-c .c-play h1{font-size:32px;margin-top:22px;font-variation-settings:'opsz' 96}
+.d-c .c-play .meta{font-family:'Caveat';font-size:22px;color:var(--margin);margin-top:4px}
+.d-c .c-play p{font-size:15.5px;line-height:28px;color:var(--ink2);margin-top:12px;max-width:62ch}
+.d-c .c-notes h3{font-family:'Fraunces';font-size:22px;margin-top:8px}
+.d-c .c-notes .n{font-family:'Caveat';font-size:21px;line-height:28px;color:#2B3A8C;margin-top:14px}
+.d-c .c-notes .n small{font-family:'Onest';font-size:11px;color:var(--muted);display:block;letter-spacing:.06em}
+.d-c .c-notes .cl{margin-top:22px;border-top:1.5px solid var(--ink);padding-top:8px}
+.d-c .c-notes .cl b{font-family:'Fraunces';font-size:16px}
+.d-c .c-notes .cl .li{display:flex;gap:8px;font-size:14.5px;line-height:28px;align-items:baseline}
+.d-c .c-notes .cl .li i{width:16px;height:16px;border:1.5px solid var(--ink);border-radius:2px;transform:translateY(2px);display:grid;place-items:center;font-size:11px;font-style:normal;flex:none}
+.d-c .c-notes .cl .li i.d{background:var(--ink);color:#fff}
+.d-c .c-notes .cl .li.on{background:linear-gradient(transparent 20%,var(--hl) 20% 90%,transparent 90%)}
+/* C me */
+.d-c .c-me .ck{border-top:1.5px solid var(--ink);padding:10px 0;display:flex;gap:12px;align-items:flex-start}
+.d-c .c-me .ck i{width:20px;height:20px;border:1.5px solid var(--ink);border-radius:3px;flex:none;display:grid;place-items:center;font-style:normal;font-size:12px;margin-top:4px}
+.d-c .c-me .ck i.d{background:var(--ink);color:#fff}
+.d-c .c-me .ck b{font-family:'Fraunces';font-size:18px;display:block}
+.d-c .c-me .ck span{font-size:13px;color:var(--muted)}
+.d-c .c-me .ck .hand{font-family:'Caveat';font-size:19px;color:var(--margin);display:block}
+/* C studio / admin */
+.d-c .c-stu{display:grid;grid-template-columns:200px 1fr;min-height:860px}
+.d-c .c-snav{padding:24px 0 0 24px;border-right:2px solid var(--margin)}
+.d-c .c-snav .it{font-family:'Caveat';font-size:22px;padding:6px 10px;color:var(--ink2)}
+.d-c .c-snav .it.on{background:var(--hl);color:var(--ink)}
+.d-c .c-smain{padding:26px 40px}
+.d-c .c-smain h1{font-size:34px;font-variation-settings:'opsz' 96}
+.d-c .c-vpanel{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;margin-top:22px}
+.d-c .c-proc{background:#fff;border:1px solid var(--line);padding:18px;box-shadow:0 8px 24px -16px rgba(0,0,0,.4);position:relative}
+.d-c .c-proc .pv{aspect-ratio:16/9;overflow:hidden;background:var(--tile);position:relative}
+.d-c .c-proc .st{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-family:'Fraunces';font-size:18px}
+.d-c .c-proc .st span{font-family:'Caveat';font-size:18px;color:var(--margin)}
+.d-c .c-proc .chips{display:flex;gap:8px;margin-top:10px}
+.d-c .c-proc .chip{font-family:'Onest';font-size:11px;border-radius:3px}
+.d-c .c-field{margin-top:12px}
+.d-c .c-field label{font-family:'Caveat';font-size:18px;color:var(--margin);display:block}
+.d-c .c-field div{border-bottom:1.5px solid var(--ink);padding:6px 0;font-size:15px}
+.d-c .c-stamp{position:absolute;right:16px;top:16px;font-family:'Fraunces';font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--margin);border:2px solid var(--margin);padding:4px 8px;transform:rotate(-8deg);opacity:.85}
+.d-c .c-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+.d-c .c-tile{border-top:1.5px solid var(--ink);padding-top:8px}
+.d-c .c-tile b{font-family:'Fraunces';font-size:32px;display:block;font-weight:600}
+.d-c .c-tile span{font-family:'Caveat';font-size:18px;color:var(--margin)}
+.d-c .c-tbl{margin-top:24px}
+.d-c .c-tbl .hd{font-family:'Fraunces';font-size:20px;margin-bottom:6px}
+.d-c .c-tbl .r{display:grid;grid-template-columns:40px 1fr auto auto;gap:12px;align-items:center;padding:8px 0;border-top:1px dotted var(--line);font-size:14.5px;line-height:28px}
+.d-c .c-tbl .r .av{width:34px;height:34px;border-radius:3px;overflow:hidden}
+.d-c .c-tbl .r small{display:block;color:var(--muted);font-size:12px;line-height:1.2}
+.d-c .c-pill{font-family:'Caveat';font-size:18px;color:var(--margin)}
+.d-c .c-pill.ok{color:#2E7D4F}
+</style>
+<style>
+/* ---------- screens page shell additions ---------- */
+.tab.grp{background:transparent;border:0;color:var(--sh-muted);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:10px 4px 10px 10px;cursor:default}
+.one{margin-top:18px}
+.one .scaler{max-width:1280px}
+.one .phone-scaler{margin-inline:auto}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:20px;align-items:start;margin-top:18px}
+.pair>*{min-width:0}
+@media (max-width:1100px){.pair{grid-template-columns:1fr}}
+.shead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding-block:16px 6px;flex-wrap:wrap}
+.shead h2{margin:0;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.shead p{margin:0;color:var(--sh-muted);font-size:13.5px;max-width:90ch}
+.shead .rt{font-family:var(--mono);font-size:11.5px;color:var(--sh-muted)}
+/* ---------- Notebook additions ---------- */
+.d-c .c-page.tall{min-height:1000px}
+.d-c .c-tape{z-index:2}
+.d-c .c-stampi{display:inline-block;font-family:'Fraunces';font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--margin);border:2px solid var(--margin);padding:2px 7px;transform:rotate(-6deg);line-height:1.3}
+.d-c .c-stampi.ok{color:#2E7D4F;border-color:#2E7D4F}
+.d-c .c-stampi.grey{color:var(--muted);border-color:var(--muted)}
+.d-c .c-stampi.big{font-size:22px;padding:6px 14px;border-width:3px}
+/* home desktop */
+.d-c .c-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:36px 0 20px}
+.d-c .c-hero h1{font-size:66px;font-variation-settings:'opsz' 144;line-height:1.02}
+.d-c .c-hero .c-sub{font-size:19px;line-height:28px}
+.d-c .c-hero .acts{display:flex;gap:12px;margin-top:22px}
+.d-c .c-btn.w{width:auto;margin:0;padding:12px 18px}
+.d-c .c-pol{background:#fff;padding:10px 10px 30px;box-shadow:0 8px 24px -14px rgba(0,0,0,.45);position:relative;transform:rotate(-1.5deg)}
+.d-c .c-pol.r{transform:rotate(1.2deg)}
+.d-c .c-pol .im{aspect-ratio:4/3;overflow:hidden;background:var(--tile)}
+.d-c .c-pol .cap{position:absolute;left:12px;right:12px;bottom:6px;font-family:'Caveat';font-size:19px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-c .c-h2{font-family:'Fraunces';font-size:30px;font-variation-settings:'opsz' 96;margin-top:28px;display:flex;align-items:baseline;gap:14px}
+.d-c .c-h2 em{font-family:'Caveat';font-style:normal;font-size:20px;color:var(--margin)}
+.d-c .c-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 24px;margin-top:18px}
+.d-c .c-cc{padding-bottom:8px}
+.d-c .c-cc b{font-family:'Fraunces';font-size:20px;display:block;margin-top:12px;line-height:1.15;padding-right:76px}
+.d-c .c-cc span{font-size:13.5px;color:var(--muted)}
+.d-c .c-cc .pr{font-family:'Caveat';font-size:22px;color:var(--margin);float:right}
+.d-c .c-cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:14px}
+.d-c .c-card{background:#fff;border:1px solid var(--line);padding:10px;position:relative;text-align:center}
+.d-c .c-card::before{content:"";position:absolute;left:0;right:0;top:30px;height:1px;background:var(--margin);opacity:.45}
+.d-c .c-card .av{width:64px;height:64px;border-radius:50%;overflow:hidden;margin:6px auto 0;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.d-c .c-card b{font-family:'Fraunces';font-size:15px;display:block;margin-top:8px}
+.d-c .c-card span{font-family:'Caveat';font-size:16px;color:var(--margin)}
+.d-c .c-foot{margin-top:40px;border-top:1.5px solid var(--ink);padding-top:10px;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+/* browse */
+.d-c .c-brow{display:grid;grid-template-columns:200px 1fr;gap:22px;padding:18px 0;border-top:1.5px solid var(--ink);align-items:start}
+.d-c .c-brow .im{aspect-ratio:4/3;overflow:hidden;background:var(--tile);border:5px solid #fff;box-shadow:0 6px 16px -10px rgba(0,0,0,.45);transform:rotate(-1.5deg)}
+.d-c .c-brow:nth-child(even) .im{transform:rotate(1.2deg)}
+.d-c .c-brow b{font-family:'Fraunces';font-size:26px;display:block;line-height:1.1}
+.d-c .c-brow .meta{font-size:14px;color:var(--muted);margin-top:4px}
+.d-c .c-brow p{font-size:15px;color:var(--ink2);margin-top:6px;max-width:60ch}
+.d-c .c-brow .ld{display:flex;align-items:baseline;gap:8px;margin-top:10px;font-family:'Caveat';font-size:22px;color:var(--margin)}
+.d-c .c-brow .ld .dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-8px)}
+.d-c .c-idx{display:flex;gap:6px;margin-top:20px;border-bottom:1.5px solid var(--ink)}
+.d-c .c-idx span{font-family:'Caveat';font-size:21px;padding:5px 14px;border:1.5px solid var(--ink);border-bottom:0;background:#fff}
+.d-c .c-idx span.on{background:var(--hl)}
+/* player phone */
+.d-c .c-pmob{padding:0 0 30px}
+.d-c .c-pmob .c-vid{aspect-ratio:16/9}
+.d-c .c-pmob .body{padding:14px 18px 0 44px;position:relative}
+.d-c .c-pmob .body::before{content:"";position:absolute;left:30px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.d-c .c-pmob h1{font-size:28px;font-variation-settings:'opsz' 96}
+/* buy sheet */
+.d-c .c-dim{position:absolute;inset:0;background:rgba(28,40,51,.45);z-index:5}
+.d-c .c-sheet{position:absolute;left:50%;top:120px;transform:translateX(-50%) rotate(-1deg);width:440px;background:var(--hl);padding:26px 28px 30px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);z-index:6}
+.d-c .c-sheet h2{font-size:30px;font-variation-settings:'opsz' 96}
+.d-c .c-sheet .pr{font-family:'Fraunces';font-size:44px;font-weight:700;letter-spacing:-.03em;margin-top:6px}
+.d-c .c-sheet .pr small{font-family:'Caveat';font-size:20px;font-weight:500;margin-left:8px}
+.d-c .c-sheet ul{list-style:none;padding:0;margin:10px 0 0;font-size:15px;line-height:28px}
+.d-c .c-sheet ul li::before{content:"— ";color:var(--margin)}
+.d-c .c-sheet .rz{font-size:12px;color:var(--ink2);margin-top:12px;display:flex;justify-content:space-between}
+.d-c .c-sheet .x{position:absolute;right:14px;top:10px;font-family:'Caveat';font-size:22px}
+/* me desktop */
+.d-c .c-medesk{display:grid;grid-template-columns:1fr 380px;gap:48px;margin-top:10px;align-items:start}
+.d-c .c-me .ck.big{padding:14px 0;display:grid;grid-template-columns:22px 120px 1fr;gap:14px}
+.d-c .c-me .ck.big .im{aspect-ratio:4/3;overflow:hidden;border:4px solid #fff;box-shadow:0 4px 12px -6px rgba(0,0,0,.4);transform:rotate(-1.5deg)}
+.d-c .c-me .ck.big b{font-size:22px}
+.d-c .c-hlbar{height:12px;background:linear-gradient(90deg,var(--hl) var(--p,50%),transparent 0);border-bottom:1.5px solid var(--ink);margin-top:6px;max-width:320px}
+/* certificate page */
+.d-c .c-bigcert{width:900px;margin:30px auto 0;background:#FFFDF5;border:3px double var(--ink);padding:44px 56px 40px;position:relative;box-shadow:0 20px 50px -24px rgba(0,0,0,.45)}
+.d-c .c-bigcert .k{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center}
+.d-c .c-bigcert h1{font-size:44px;text-align:center;font-variation-settings:'opsz' 144;margin-top:16px}
+.d-c .c-bigcert .to{font-family:'Caveat';font-size:24px;color:var(--margin);text-align:center;margin-top:22px}
+.d-c .c-bigcert .nm{font-family:'Fraunces';font-size:54px;text-align:center;margin-top:2px;font-variation-settings:'opsz' 144;position:relative;display:block}
+.d-c .c-bigcert .nm::after{content:"";position:absolute;left:30%;right:30%;bottom:-2px;height:3px;background:var(--margin)}
+.d-c .c-bigcert .ft{display:flex;justify-content:space-between;margin-top:40px;font-size:13px;color:var(--ink2);border-top:1px solid var(--line);padding-top:12px}
+.d-c .c-bigcert .ft b{font-family:'Caveat';font-size:20px;color:var(--ink);display:block;font-weight:500}
+.d-c .c-bigcert .seal{width:84px;height:84px;font-size:12px;right:52px;top:40px;transform:scale(1) rotate(-8deg);opacity:1}
+.d-c .c-verify{width:520px;margin:40px auto 0;background:#fff;border:1px solid var(--line);padding:24px 28px;position:relative}
+.d-c .c-verify::before{content:"";position:absolute;left:0;right:0;top:44px;height:1px;background:var(--margin);opacity:.5}
+.d-c .c-verify .k{font-family:'Caveat';font-size:20px;color:var(--margin)}
+.d-c .c-verify b{font-family:'Fraunces';font-size:24px;display:block;margin-top:14px}
+.d-c .c-verify dl{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;margin:12px 0 0;font-size:15px;line-height:28px}
+.d-c .c-verify dt{color:var(--muted)}.d-c .c-verify dd{margin:0}
+/* auth */
+.d-c .c-auth{display:grid;grid-template-columns:420px 1fr;gap:64px;margin-top:20px;align-items:start}
+.d-c .c-in{margin-top:16px}
+.d-c .c-in label{font-family:'Caveat';font-size:20px;color:var(--margin);display:block}
+.d-c .c-in div{border-bottom:1.5px solid var(--ink);padding:6px 0;font-size:16px;min-height:36px}
+.d-c .c-in div.ph{color:var(--muted);background:transparent}
+.d-c .c-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.d-c .c-demo .c-card{text-align:left;padding:14px;cursor:pointer}
+.d-c .c-demo .c-card::before{top:34px}
+.d-c .c-demo .c-card b{margin-top:14px;font-size:18px}
+.d-c .c-demo .c-card p{font-size:13px;color:var(--ink2);margin-top:6px;line-height:1.45}
+/* studio courses */
+.d-c .c-srow{display:grid;grid-template-columns:120px 1fr 110px 110px 120px 120px;gap:18px;align-items:center;padding:14px 0;border-top:1px dotted var(--line);font-size:15px}
+.d-c .c-srow.h{font-family:'Caveat';font-size:19px;color:var(--margin);border-top:0;padding:4px 0}
+.d-c .c-srow .im{aspect-ratio:4/3;overflow:hidden;border:4px solid #fff;box-shadow:0 4px 12px -6px rgba(0,0,0,.4);transform:rotate(-1.5deg)}
+.d-c .c-srow b{font-family:'Fraunces';font-size:20px;display:block;line-height:1.1}
+.d-c .c-srow small{color:var(--muted);font-size:13px}
+/* editor */
+.d-c .c-editor{display:grid;grid-template-columns:1fr 320px;gap:40px;margin-top:18px;align-items:start}
+.d-c .c-ic{background:#fff;border:1px solid var(--line);padding:14px 16px 10px;position:relative;margin-top:16px;box-shadow:0 6px 16px -14px rgba(0,0,0,.4)}
+.d-c .c-ic::before{content:"";position:absolute;left:0;right:0;top:40px;height:1px;background:var(--margin);opacity:.5}
+.d-c .c-ic .hd{display:flex;justify-content:space-between;align-items:baseline;font-family:'Fraunces';font-size:20px;padding-bottom:6px}
+.d-c .c-ic .hd span{font-family:'Caveat';font-size:18px;color:var(--margin)}
+.d-c .c-lr{display:grid;grid-template-columns:18px 1fr auto auto auto;gap:14px;align-items:center;padding:8px 0;border-top:1px dotted var(--line);font-size:15px;line-height:28px}
+.d-c .c-lr .gr{color:var(--muted);font-size:14px;letter-spacing:-2px}
+.d-c .c-lr .du{font-size:13px;color:var(--muted)}
+.d-c .c-lr .tg{font-family:'Caveat';font-size:17px;color:var(--muted)}
+.d-c .c-lr .tg.on{color:var(--margin)}
+.d-c .c-add{font-family:'Caveat';font-size:19px;color:var(--pen,#2B3A8C);padding:6px 0 0}
+.d-c .c-sticky.sm{padding:16px 18px 18px;font-size:14.5px}
+.d-c .c-sticky.sm b{font-family:'Fraunces';font-size:20px;display:block}
+.d-c .c-sticky ul.chk li::before{content:"☐ "}
+.d-c .c-sticky ul.chk li.d::before{content:"☑ "}
+/* upload states */
+.d-c .c-drop{border:2px dashed var(--ink);padding:44px 20px;text-align:center;background:#fff}
+.d-c .c-drop b{font-family:'Fraunces';font-size:22px;display:block}
+.d-c .c-drop span{font-size:13.5px;color:var(--muted);display:block;margin-top:6px}
+.d-c .c-drop .c-hand{margin-top:10px}
+.d-c .c-prog{height:3px;background:var(--line);margin-top:14px;position:relative}
+.d-c .c-prog i{position:absolute;left:0;top:0;bottom:0;width:62%;background:var(--pen,#2B3A8C)}
+.d-c .c-prog b{position:absolute;right:0;top:8px;font-family:'Caveat';font-size:17px;color:var(--pen,#2B3A8C);font-weight:500}
+/* ledger */
+.d-c .c-ledger{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px}
+.d-c .c-ledger th{font-family:'Caveat';font-size:19px;color:var(--margin);text-align:left;font-weight:500;border-bottom:1.5px solid var(--ink);padding:4px 8px}
+.d-c .c-ledger td{padding:0 8px;line-height:28px;border-bottom:1px dotted var(--line);vertical-align:top}
+.d-c .c-ledger td.num,.d-c .c-ledger th.num{text-align:right;font-variant-numeric:tabular-nums}
+.d-c .c-ledger td.neg{color:var(--margin)}
+.d-c .c-earn{display:grid;grid-template-columns:1fr 300px;gap:40px;margin-top:10px;align-items:start}
+/* creator page */
+.d-c .c-cpage{display:grid;grid-template-columns:320px 1fr;gap:48px;margin-top:20px;align-items:start}
+.d-c .c-cpage .c-pol{width:300px}
+/* states */
+.d-c .c-torn{text-align:center;padding:120px 0 0}
+.d-c .c-torn h1{font-size:64px;font-variation-settings:'opsz' 144}
+.d-c .c-torn p{font-size:17px;color:var(--ink2);margin-top:12px;line-height:28px}
+.d-c .c-lock{position:absolute;inset:0;background:rgba(14,20,26,.55);display:grid;place-items:center;z-index:3}
+.d-c .c-lock .c-sticky{position:static;width:340px;transform:rotate(-2deg)}
+.d-c .c-empty{border:2px dashed var(--line);padding:40px;text-align:center;margin-top:20px}
+.d-c .c-empty b{font-family:'Fraunces';font-size:24px;display:block}
+.d-c .c-empty span{font-family:'Caveat';font-size:20px;color:var(--margin);display:block;margin-top:6px}
+</style>
+<div class="wrap">
+  <header>
+    <p class="fl">Skillroom · step 4 · screens · direction C · Notebook</p>
+    <h1 class="t">Skillroom screens — every v1 screen in Notebook</h1>
+    <p class="lede">One screen at a time, from the screen index in <b>03-user-flows.md</b>. Student, creator and admin sides, plus the states. Motions replay when a screen is shown. Keys <b>←/→</b> move between screens.</p>
+  </header>
+  <nav class="tabs" role="tablist" id="tabs"></nav>
+  <div id="panels"></div>
+  <p class="credits">Photos: Wikimedia Commons, CC / public domain — credits in <code>mockups/img/CREDITS.md</code>. Skillroom and its creators are fictional. Prices in ₹.</p>
+</div>
+
+<script>
+(function(){
+const IMG = n => `img/${n}.jpg`;
+const CREATORS = [
+  {name:'Meera Kulkarni', area:'Jayanagar', img:'creator-1', bio:'Fifteen years at the wheel; teaches from a garage studio behind Jayanagar 4th Block. Six pots, no shortcuts.'},
+  {name:'Arjun Nair', area:'Koramangala', img:'creator-4', bio:'Home cook turned teacher. Parathas on a tawa, naan in a home oven.'},
+  {name:'Priya Raghavan', area:'Malleshwaram', img:'creator-3', bio:'Paints Malleshwaram mornings in watercolour; teaches washes, not tricks.'},
+  {name:'Rohan Shetty', area:'Indiranagar', img:'creator-6', bio:'Four weeks of 20-minute mornings. Free, because everyone should start.'},
+  {name:'Divya Menon', area:'HSR Layout', img:'creator-5', bio:'Street photography with the phone in your pocket. Light, timing, nerve.'},
+  {name:'Karthik Rao', area:'Basavanagudi', img:'creator-2', bio:'Fingerstyle from zero — one thumb, three fingers, four lessons.'},
+];
+const COURSES = [
+  {slug:'wheel-pottery', title:'Wheel pottery: first six pots', sub:'Centre, open, pull. Six pots in four lessons on a home wheel — and why the first three will collapse.', cat:'Pottery', c:0, price:1499, img:'cover-pottery', lessons:4, mins:9, level:'Beginner', enrolled:412},
+  {slug:'flatbreads', title:'Flatbreads at home: paratha to naan', sub:'Dough, rest, roll, tawa. Then naan without a tandoor.', cat:'Baking', c:1, price:999, img:'cover-baking', lessons:4, mins:8, level:'Beginner', enrolled:298},
+  {slug:'watercolour', title:'Watercolour landscapes', sub:'Wet-on-wet skies, dry-brush trees, one Malleshwaram street.', cat:'Art', c:2, price:1299, img:'cover-watercolour', lessons:4, mins:10, level:'All levels', enrolled:187},
+  {slug:'morning-yoga', title:'Morning yoga, four weeks', sub:'Twenty minutes, before the phone.', cat:'Yoga', c:3, price:0, img:'cover-yoga', lessons:4, mins:9, level:'Beginner', enrolled:1930},
+  {slug:'street-photo', title:'Street photography on a phone', sub:'Light, timing and the nerve to raise the phone.', cat:'Photography', c:4, price:1199, img:'cover-photography', lessons:4, mins:9, level:'Intermediate', enrolled:342},
+  {slug:'fingerstyle', title:'Fingerstyle guitar from zero', sub:'One thumb, three fingers, four lessons.', cat:'Music', c:5, price:1499, img:'cover-guitar', lessons:4, mins:11, level:'Beginner', enrolled:521},
+];
+const CURR = [
+  {sec:'Getting on the wheel', ls:[{t:'Wedging and centring', d:'2:10', pv:true, done:true, img:'cover-pottery'},{t:'Opening and the floor', d:'2:24', done:true, img:'still-pottery-2'}]},
+  {sec:'Pulling walls', ls:[{t:'The first pull', d:'2:31', on:true, img:'hero-studio'},{t:'Shaping a cylinder', d:'2:05', img:'still-photo-2'}]},
+];
+const LESSONS = CURR.flatMap(s=>s.ls);
+const rs = p => p===0 ? 'Free' : '₹'+p.toLocaleString('en-IN');
+const im = (n,alt='') => `<img src="${IMG(n)}" alt="${alt}" loading="lazy">`;
+const cr = i => CREATORS[i];
+const P = COURSES[0];
+
+/* shared motion snippets (direction-agnostic markup, styled by the stage tokens) */
+const chips = () => `<span class="chip" data-chip><i></i>240p</span><span class="chip" data-chip><i></i>480p</span><span class="chip" data-chip><i></i>720p</span>`;
+const track = (to='38%') => `<div class="track" style="--to:${to}"><div class="fill"></div><div class="head"></div></div>`;
+const toast = (txt='Resume at 4:12 · from your phone') => `<div class="toast"><span class="ring"></span>${txt}</div>`;
+const cdraw = (rows) => `<div class="cdraw" data-m="draw"><div class="line"><i></i></div>${rows.map(r=>`<div class="crow"><span class="dot ${r.done?'done':''}"><svg viewBox="0 0 12 12"><path d="M2 6.5 5 9.5 10 3"/></svg></span>${r.html}</div>`).join('')}</div>`;
+const ladder = () => `<div class="ladder" data-m="ladder">${['240p','480p','720p'].map((n,i)=>`<div class="lrow"><span>${n}</span><div class="bar">${'<i></i>'.repeat(20)}</div><span class="kb num" data-kb="${[200,500,1000][i]}">0 kbps</span></div>`).join('')}</div>`;
+const cert = (name='Aditi Rao') => `<div class="cslot" data-m="print"><div class="ccard"><div style="font-family:var(--labelfont);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Certificate of completion</div><div style="font-family:var(--headfont);font-size:20px;margin-top:8px;font-weight:var(--headwt)">${P.title}</div><div style="font-size:13px;margin-top:8px">awarded to <b class="cname">${name}</b></div><div style="font-family:var(--labelfont);font-size:10.5px;color:var(--muted);margin-top:10px">SR-7Q2M-K9XD · 17 Sep 2026 · ${cr(0).name}</div><div class="seal">SKILL<br>ROOM</div></div></div>`;
+const count = (from,to) => `<span class="count" data-m="count" data-from="${from}" data-to="${to}"></span>`;
+const ring = (to='75%',label='75%') => `<div class="ring" data-m="ring" data-to="${to}"><b>${label}</b></div>`;
+const pop = () => `<span class="pop" data-m="pop">✓</span>`;
+const scrub = (frames) => `<div class="scrub" data-m="scrub" style="aspect-ratio:16/9">${frames.map((f,i)=>`<div class="fr ${i===0?'on':''}">${im(f)}</div>`).join('')}<div class="hair"></div></div>`;
+
+
+const R = {};
+R.c = {
+  course: () => `<div class="dsk c-page">
+    <nav class="c-nav"><div class="c-logo">Skillroom<em>notebook</em></div><ul><li>Browse</li><li>All-access</li><li>Teach</li><li>Aditi</li></ul></nav>
+    <div class="c-course">
+      <div>
+        <div class="c-hand">Pottery · beginner · 4 lessons, 9 min</div>
+        <h1>${P.title}</h1>
+        <p class="c-sub">${P.sub}</p>
+        <div class="c-poster"><span class="c-tape"></span><span class="c-tape r"></span><div class="im">${im(P.img)}</div><span class="cap">fig. 1 — the preview lesson, 2:10 ▶</span></div>
+        <div class="c-toc"><h2>Contents</h2>
+          ${CURR.map((s,si)=>`<div class="sec">Section ${si+1} — ${s.sec}</div>${cdraw(s.ls.map(l=>({done:l.done,html:`<span class="${l.on?'hl':''}">${l.t}</span>${l.pv?'<span class="pv">preview ✎</span>':''}<span class="dots" style="flex:1;border-bottom:2px dotted var(--line);transform:translateY(-6px)"></span><span class="pg num">${l.d}</span>`})))}`).join('')}
+        </div>
+      </div>
+      <aside>
+        <div class="c-sticky"><div class="c-hand">this course</div><div class="pr">₹1,499<small>once</small></div><a class="c-btn">Buy this course</a><a class="c-btn line">Watch the preview</a>
+          <ul><li>4 lessons, any device</li><li>resume where you stopped</li><li>certificate with your name</li><li>the glaze chart, as a PDF</li></ul></div>
+        <div class="c-index"><div class="av">${im(cr(0).img)}</div><b>${cr(0).name}</b><span>${cr(0).area}, Bengaluru · 412 students</span><p>${cr(0).bio}</p></div>
+      </aside>
+    </div></div>`,
+  home: () => `<div class="mob c-mob c-page">
+    <nav class="c-nav"><div class="c-logo">Skillroom</div><span class="c-hand" style="font-size:18px">hi Aditi</span></nav>
+    <h1>Learn from people who do it.</h1><div class="c-hand">short video courses · Bengaluru makers</div>
+    <div class="c-tabs"><span class="on">New</span><span>Free</span><span>Pottery</span><span>Art</span></div>
+    ${COURSES.slice(0,4).map(c=>`<div class="c-entry"><div class="im">${im(c.img)}</div><div><b>${c.title}</b><span>${cr(c.c).name} · ${c.lessons} lessons · ${c.mins} min</span><br><span class="pr">${rs(c.price)}</span></div></div>`).join('')}
+    </div>`,
+  player: () => `<div class="dsk c-play">
+    <div>
+      <div class="c-vwrap"><span class="c-tape" style="left:20px"></span><span class="c-tape r" style="right:20px"></span><div class="c-vid">${im('hero-studio')}<div class="ctl" data-m="glide">${toast('Resume at 4:12 — from your phone')}${track('38%')}<div class="ic"><b>▶</b><span class="num">4:12 / 11:02</span><b>1×</b><b>CC</b><b>480p</b><span style="margin-left:auto">⛶</span></div></div></div></div>
+      <h1>The first pull</h1><div class="meta">section 2 · lesson 3 · 2:31</div>
+      <p>Where the clay goes thin and why. Keep the sponge close and stop when the wall starts to sing. Three pulls, no more — the fourth is where beginners lose the rim.</p>
+      <p style="margin-top:8px"><span class="c-hand" style="font-size:20px">📄 Glaze chart.pdf</span> &nbsp; <span class="c-hand" style="font-size:20px">→ next: Shaping a cylinder</span></p>
+    </div>
+    <aside class="c-notes"><h3>Notes</h3>
+      <div class="n"><small>1:04</small>thumb pressure down, not in</div>
+      <div class="n"><small>3:40</small>sponge before every pull!!</div>
+      <div class="cl"><b>${P.title}</b>${LESSONS.map(l=>`<div class="li ${l.on?'on':''}"><i class="${l.done?'d':''}">${l.done?'✓':''}</i>${l.t}<span style="margin-left:auto;color:var(--muted);font-size:12px">${l.d}</span></div>`).join('')}<div class="li"><i></i>Certificate<span style="margin-left:auto;color:var(--muted);font-size:12px">2 to go</span></div></div>
+    </aside></div>`,
+  me: () => `<div class="mob c-mob c-page c-me"><nav class="c-nav"><div class="c-logo">Skillroom</div></nav><h1>My learning</h1><div class="c-hand">two courses, one certificate</div>
+    <div style="margin-top:14px">
+      <div class="ck"><i></i><div><b>${P.title}</b><span>2 of 4 lessons</span><span class="hand">continue → The first pull, 4:12</span></div></div>
+      <div class="ck"><i class="d">✓</i><div><b>Morning yoga, four weeks</b><span>completed 12 Sep</span><span class="hand">certificate below ↓</span></div></div>
+    </div>
+    <div style="margin-top:18px">${cert('Aditi Rao')}</div>
+    <div class="ck" style="margin-top:18px"><i></i><div><b>Account</b><span>aditi@example.in · change password</span></div></div>
+    </div>`,
+  studio: () => `<div class="dsk c-stu">
+    <nav class="c-snav"><div class="c-logo" style="margin-bottom:16px">Studio</div><div class="it on">Courses</div><div class="it">Earnings</div><div class="it">Profile</div></nav>
+    <div class="c-smain"><div class="c-hand">Wheel pottery › Section 2</div><h1>Lesson 3 · The first pull</h1>
+      <div class="c-vpanel">
+        <div class="c-proc" data-m="develop"><span class="c-stamp" data-stamp>processing</span><div class="pv"><img class="dev-img" src="${IMG('hero-studio')}" alt=""></div>
+          <div class="st"><span data-status>Processing…</span><span>the-first-pull.mov · 184 MB</span></div>
+          <div class="chips">${chips()}</div>
+          <div class="rise" style="margin-top:14px;display:flex;gap:10px"><a class="c-btn" style="width:auto;margin:0;padding:9px 14px;font-size:13px">Preview it</a><a class="c-btn line" style="width:auto;margin:0;padding:9px 14px;font-size:13px">Replace video</a></div></div>
+        <div><div class="c-field"><label>title</label><div>The first pull</div></div><div class="c-field"><label>section</label><div>Section 2 · Pulling walls</div></div><div class="c-field"><label>preview</label><div>off — paid students only</div></div><div class="c-field"><label>resources</label><div>📄 Glaze chart.pdf · 1.2 MB</div></div><div class="c-field"><label>job</label><div style="font-size:13px;color:var(--muted)">#a91f · runner claimed 12:04:41 · attempt 1</div></div></div>
+      </div></div></div>`,
+  admin: () => `<div class="dsk c-stu">
+    <nav class="c-snav"><div class="c-logo" style="margin-bottom:16px">Admin</div><div class="it on">Dashboard</div><div class="it">Creators</div><div class="it">Courses</div><div class="it">Video jobs</div><div class="it">Payouts</div></nav>
+    <div class="c-smain"><h1>Last 30 days</h1>
+      <div class="c-tiles"><div class="c-tile"><b>₹1,84,300</b><span>revenue</span></div><div class="c-tile"><b>163</b><span>enrollments</span></div><div class="c-tile"><b>2</b><span>applications waiting</span></div><div class="c-tile"><b>1</b><span>failed video job</span></div></div>
+      <div class="c-tbl"><div class="hd">Creator applications</div>
+        ${[[3,'Rohan Shetty','Yoga · Indiranagar'],[5,'Karthik Rao','Music · Basavanagudi']].map(a=>`<div class="r"><div class="av">${im(cr(a[0]).img)}</div><div>${a[1]}<small>${a[2]}</small></div><span class="c-pill ok">approve ✓</span><span class="c-pill">reject ✗</span></div>`).join('')}</div>
+      <div class="c-tbl"><div class="hd">Video jobs</div>
+        <div class="r"><div class="av">${im('hero-studio')}</div><div>The first pull<small>Wheel pottery · Meera Kulkarni</small></div><span class="c-pill">processing · 0:48</span><span></span></div>
+        <div class="r"><div class="av">${im('cover-guitar')}</div><div>Thumb independence<small>Fingerstyle guitar · Karthik Rao</small></div><span class="c-pill">failed · unsupported codec</span><span class="c-pill ok">retry ↻</span></div></div>
+    </div></div>`,
+};
+
+
+const C = R.c;
+const nav = (who='Aditi') => `<nav class="c-nav"><div class="c-logo">Skillroom<em>notebook</em></div><ul><li>Browse</li><li>All-access</li><li>Teach</li><li>${who}</li></ul></nav>`;
+const snav = (title, items, on) => `<nav class="c-snav"><div class="c-logo" style="margin-bottom:16px">${title}</div>${items.map(i=>`<div class="it ${i===on?'on':''}">${i}</div>`).join('')}</nav>`;
+const STUDIO = ['Courses','Earnings','Profile'], ADMIN = ['Dashboard','Creators','Courses','Video jobs','Payouts'];
+const pol = (c, r) => `<div class="c-pol ${r?'r':''}"><span class="c-tape" style="left:30px"></span><div class="im">${im(c.img)}</div><span class="cap">${cr(c.c).name} · ${c.lessons} lessons · ${c.mins} min</span></div>`;
+
+const S = {
+  s1d: () => `<div class="dsk c-page tall">${nav()}
+    <div class="c-hero"><div><div class="c-hand">short video courses · Bengaluru makers · ₹0 to start</div><h1>Learn from people who do it.</h1><p class="c-sub">Six courses, twenty-four lessons, one notebook. Buy a course, or take them all for ₹499 a month.</p><div class="acts"><a class="c-btn w">Browse courses</a><a class="c-btn w line">See a free lesson</a></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">${pol(COURSES[0])}<div style="margin-top:34px">${pol(COURSES[3],1)}</div></div></div>
+    <div class="c-idx"><span class="on">New</span><span>Pottery</span><span>Baking</span><span>Art</span><span>Yoga</span><span>Photography</span><span>Music</span></div>
+    <div class="c-h2">New this week <em>three courses, three makers</em></div>
+    <div class="c-grid3">${[1,2,4].map((i,k)=>COURSES[i]).map((c,k)=>`<div class="c-cc">${pol(c,k%2)}<span class="pr">${rs(c.price)}</span><b>${c.title}</b><span>${c.sub}</span></div>`).join('')}</div>
+    <div class="c-h2">Free to start <em>preview lessons, no account</em></div>
+    ${cdraw(COURSES.slice(0,3).map(c=>({done:false,html:`<span>${c.title} — <span style="color:var(--muted)">lesson 1, ${LESSONS[0].d}</span></span><span class="c-hand" style="font-size:18px;margin-left:auto">watch ▶</span>`})))}
+    <div class="c-h2">The makers <em>all in Bengaluru</em></div>
+    <div class="c-cards">${CREATORS.map(c=>`<div class="c-card"><div class="av">${im(c.img)}</div><b>${c.name}</b><span>${c.area}</span></div>`).join('')}</div>
+    <div class="c-foot"><span>Skillroom · a portfolio project by Viraj Domadia · fictional creators, real video pipeline</span><span>Teach on Skillroom · Verify a certificate</span></div>
+  </div>`,
+  s2: () => `<div class="dsk c-page tall">${nav()}
+    <h1 style="font-size:52px;font-variation-settings:'opsz' 144;margin-top:16px">Browse</h1><div class="c-hand">6 courses · sorted by newest · <span style="color:var(--pen,#2B3A8C)">search comes in v3</span></div>
+    <div class="c-idx"><span class="on">All</span><span>Pottery</span><span>Baking</span><span>Art</span><span>Yoga</span><span>Photography</span><span>Music</span></div>
+    <div style="margin-top:6px">${COURSES.map(c=>`<div class="c-brow"><div class="im">${im(c.img)}</div><div><b>${c.title}</b><div class="meta">${cr(c.c).name} · ${cr(c.c).area} · ${c.level} · ${c.lessons} lessons · ${c.mins} min · ${c.enrolled.toLocaleString('en-IN')} students</div><p>${c.sub}</p><div class="ld"><span>${c.price===0?'enrol free':'buy'}</span><span class="dots"></span><span>${rs(c.price)}</span></div></div></div>`).join('')}</div>
+  </div>`,
+  s4m: () => `<div class="mob c-pmob"><div class="c-vid" style="margin-top:0">${im('hero-studio')}<div class="ctl" data-m="glide">${toast('Resume at 4:12 — from your laptop')}${track('38%')}<div class="ic"><b>▶</b><span class="num">4:12 / 11:02</span><b>1×</b><b>480p</b><span style="margin-left:auto">⛶</span></div></div></div>
+    <div class="body"><div class="c-hand" style="font-size:19px">section 2 · lesson 3 of 4</div><h1>The first pull</h1>
+      <p style="font-size:15px;line-height:28px;color:var(--ink2);margin-top:6px">Where the clay goes thin and why. Keep the sponge close.</p>
+      <div class="c-notes"><div class="cl"><b>${P.title}</b>${LESSONS.map(l=>`<div class="li ${l.on?'on':''}"><i class="${l.done?'d':''}">${l.done?'✓':''}</i>${l.t}<span style="margin-left:auto;color:var(--muted);font-size:12px">${l.d}</span></div>`).join('')}</div>
+      <div class="n"><small>1:04</small>thumb pressure down, not in</div></div>
+      <div style="margin-top:16px;display:flex;gap:10px"><a class="c-btn w" style="padding:10px 14px;font-size:14px">Mark complete</a><a class="c-btn w line" style="padding:10px 14px;font-size:14px">Next →</a></div>
+    </div></div>`,
+  s5: () => C.course().replace('<div class="c-course">', `<div class="c-dim"></div><div class="c-sheet"><span class="x">✕</span><div class="c-hand">buy this course</div><h2>${P.title}</h2><div class="pr">₹1,499<small>once, forever</small></div><ul><li>4 lessons · 9 min · 240p–720p</li><li>resume on any device</li><li>certificate with your name</li><li>the glaze chart PDF</li></ul><a class="c-btn">Pay ₹1,499 with Razorpay</a><div class="rz"><span>test mode · card 4111 1111 1111 1111</span><span>as Aditi Rao</span></div></div><div class="c-course">`),
+  s6d: () => `<div class="dsk c-page tall">${nav()}
+    <h1 style="font-size:52px;font-variation-settings:'opsz' 144;margin-top:16px">My learning</h1><div class="c-hand">two courses · one certificate · Aditi Rao</div>
+    <div class="c-medesk c-me"><div>
+      <div class="ck big" style="margin-top:16px;border-top:1.5px solid var(--ink)"><i></i><div class="im">${im(P.img)}</div><div><b>${P.title}</b><span>2 of 4 lessons · ${cr(0).name}</span><div class="c-hlbar" style="--p:50%"></div><span class="hand">continue → The first pull, at 4:12</span></div></div>
+      <div class="ck big"><i class="d">✓</i><div class="im">${im('cover-yoga')}</div><div><b>Morning yoga, four weeks</b><span>4 of 4 · completed 12 Sep</span><div class="c-hlbar" style="--p:100%"></div><span class="hand">certificate SR-7Q2M-K9XD →</span></div></div>
+      <div class="c-h2">Account <em>aditi@example.in</em></div><div class="c-in"><label>name</label><div>Aditi Rao</div></div><div class="c-in"><label>password</label><div>••••••••</div></div>
+    </div><aside><div class="c-hand" style="margin-top:16px">certificates</div>${cert('Aditi Rao')}<div class="c-sticky sm" style="margin-top:26px"><b>All-access</b>every course for ₹499 / month — comes in v2. For now, buy a course at a time.</div></aside></div>
+  </div>`,
+  s7: () => `<div class="dsk c-page tall">${nav()}
+    <div class="c-bigcert"><div class="seal">SKILL<br>ROOM</div><div class="k">Certificate of completion</div><h1>Morning yoga, four weeks</h1><div class="to">awarded to</div><span class="nm">Aditi Rao</span>
+      <p style="text-align:center;font-size:15px;color:var(--ink2);margin-top:22px;line-height:28px">for completing all four lessons and every section quiz<br>taught by ${cr(3).name}, Indiranagar, Bengaluru</p>
+      <div class="ft"><div>Issued<b>12 September 2026</b></div><div>Code<b>SR-7Q2M-K9XD</b></div><div>Verify at<b>skillroom.virajdomadia.com/verify/SR-7Q2M-K9XD</b></div></div></div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:22px"><a class="c-btn w">Download PDF</a><a class="c-btn w line">Copy verify link</a></div>
+    <div class="c-h2" style="justify-content:center">Public verify page <em>/verify/SR-7Q2M-K9XD · anyone can open this</em></div>
+    <div class="c-verify"><span class="k">verified ✓ · this certificate is genuine</span><b>Morning yoga, four weeks</b><dl><dt>awarded to</dt><dd>Aditi Rao</dd><dt>taught by</dt><dd>${cr(3).name}</dd><dt>issued</dt><dd>12 September 2026</dd><dt>code</dt><dd>SR-7Q2M-K9XD</dd></dl></div>
+  </div>`,
+  s8: () => `<div class="dsk c-page tall">${nav('Sign in')}
+    <div class="c-auth"><div><h1 style="font-size:46px;font-variation-settings:'opsz' 144;margin-top:16px">Sign in</h1><div class="c-hand">or make an account — it takes a name and an email</div>
+      <div class="c-in"><label>email</label><div>aditi@example.in</div></div><div class="c-in"><label>password</label><div class="ph">••••••••</div></div>
+      <a class="c-btn" style="margin-top:22px">Sign in</a><div style="margin-top:12px;font-size:14px;color:var(--muted)">New here? <span style="color:var(--pen,#2B3A8C);font-family:'Caveat';font-size:19px">create an account →</span></div></div>
+      <div><div class="c-hand" style="margin-top:22px">try it as</div><div class="c-demo">
+        <div class="c-card"><div class="av" style="margin:0">${im('creator-5')}</div><b>Student</b><p>Aditi Rao · one course half done, one completed with a certificate.</p></div>
+        <div class="c-card"><div class="av" style="margin:0">${im('creator-1')}</div><b>Creator</b><p>${cr(0).name} · two published courses, a lesson mid-processing, real earnings.</p></div>
+        <div class="c-card"><div class="av" style="margin:0;background:var(--ink)"></div><b>Admin</b><p>The platform · two applications waiting, one failed job, payouts.</p></div></div>
+        <div class="c-h2">Teach on Skillroom <em>apply, get approved, open the studio</em></div>
+        <div class="c-in"><label>display name</label><div>Meera Kulkarni</div></div><div class="c-in"><label>area</label><div>Jayanagar</div></div><div class="c-in"><label>what you'll teach</label><div>Wheel pottery for beginners — six pots in four lessons</div></div>
+        <div style="display:flex;gap:14px;align-items:center;margin-top:18px"><a class="c-btn w">Apply to teach</a><span class="c-stampi grey">reviewed within a day</span></div></div></div>
+  </div>`,
+  s9: () => `<div class="dsk c-stu">${snav('Studio',STUDIO,'Courses')}<div class="c-smain"><div class="c-hand">${cr(0).name} · Jayanagar</div><h1>Your courses</h1>
+    <div style="display:flex;gap:12px;margin-top:14px"><a class="c-btn w">New course</a></div>
+    <div style="margin-top:18px"><div class="c-srow h"><span></span><span>course</span><span>status</span><span>lessons</span><span>students</span><span>revenue</span></div>
+      ${[[0,'published','4 / 4',412,'₹4,93,957'],[2,'draft','3 / 4',0,'—'],[4,'published','4 / 4',342,'₹3,28,144']].map(([i,st,ls,en,rv])=>`<div class="c-srow"><div class="im">${im(COURSES[i].img)}</div><div><b>${COURSES[i].title}</b><small>${COURSES[i].cat} · ${rs(COURSES[i].price)} · updated 2 d ago</small></div><span class="c-stampi ${st==='published'?'ok':'grey'}">${st}</span><span>${ls}<br><small>ready</small></span><span>${en}</span><span>${rv}<br><small>after 20 % fee</small></span></div>`).join('')}</div>
+  </div></div>`,
+  s10: () => `<div class="dsk c-stu">${snav('Studio',STUDIO,'Courses')}<div class="c-smain"><div class="c-hand">Your courses › ${P.title}</div><h1>Course editor <span class="c-stampi ok" style="font-size:12px;vertical-align:middle;margin-left:10px">published</span></h1>
+    <div class="c-editor"><div>
+      <div class="c-in"><label>title</label><div>${P.title}</div></div><div class="c-in"><label>subtitle</label><div>${P.sub}</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px"><div class="c-in"><label>category</label><div>Pottery</div></div><div class="c-in"><label>level</label><div>Beginner</div></div><div class="c-in"><label>price (₹, 0 = free)</label><div>1,499</div></div></div>
+      ${CURR.map((s,si)=>`<div class="c-ic"><div class="hd">Section ${si+1} · ${s.sec}<span>rename · move ↕ · quiz (v2)</span></div>${s.ls.map((l,li)=>`<div class="c-lr"><span class="gr">⋮⋮</span><span>${l.t}${l.pv?' <span class="c-stampi" style="font-size:9px">preview</span>':''}</span><span class="du">${l.d}</span><span class="chip ${si*2+li<3?'on':'run'}" style="font-family:'Onest';font-size:10.5px;border-radius:3px"><i></i>${si*2+li<3?'ready':'processing'}</span><span class="tg ${l.pv?'on':''}">${l.pv?'preview ✓':'preview'}</span></div>`).join('')}<div class="c-add">+ add a lesson</div></div>`).join('')}
+      <div class="c-add" style="margin-top:14px">+ add a section</div>
+    </div><aside><div class="c-sticky sm"><b>Publish checklist</b><ul class="chk"><li class="d">at least one section</li><li class="d">at least one ready lesson</li><li class="d">a description</li><li>lesson 4 still processing</li></ul><a class="c-btn" style="margin-top:12px">Unpublish</a></div>
+      <div class="c-index" style="margin-top:22px"><b>Cover</b><span>poster of the first ready lesson, or upload one</span><div style="aspect-ratio:16/9;overflow:hidden;margin-top:12px">${im(P.img)}</div></div></aside></div>
+  </div></div>`,
+  s11u: () => C.studio().replace(/<div class="c-proc" data-m="develop">[\s\S]*?<\/div>\s*<\/div>\s*<div><div class="c-field">/, `<div><div class="c-drop"><b>Drop the video here</b><span>mp4, mov or webm · up to 500 MB · uploads straight to storage, then our worker makes the 240p / 480p / 720p ladder</span><div class="c-hand">or choose a file →</div></div><div class="c-prog"><i></i><b>uploading · 62 % · 114 of 184 MB</b></div></div>
+        <div><div class="c-field">`),
+  s11f: () => C.studio().replace('<span class="c-stamp" data-stamp>processing</span>','<span class="c-stamp">failed</span>').replace('data-m="develop"','').replace('<span data-status>Processing…</span>','<span>Failed · attempt 2 of 3</span>').replace(/<div class="chips">[\s\S]*?<\/div>\s*<div class="rise"/, `<div style="margin-top:10px;font-family:'Onest';font-size:12.5px;color:var(--margin);background:#FFF1EE;padding:8px 10px;border-left:3px solid var(--margin)">ffmpeg: Unsupported codec (hevc, 10-bit) in stream 0 — export as H.264 and try again</div><div class="rise go"`),
+  s12: () => `<div class="dsk c-stu">${snav('Studio',STUDIO,'Earnings')}<div class="c-smain"><div class="c-hand">${cr(0).name} · Jayanagar</div><h1>Earnings</h1>
+    <div class="c-earn"><div><table class="c-ledger"><tr><th>date</th><th>entry</th><th>order</th><th class="num">amount</th></tr>
+      ${[['17 Sep','sale · Wheel pottery · Aditi Rao','SR-1042','+ ₹1,199.20'],['17 Sep','fee · 20 % platform','SR-1042','− ₹299.80',1],['16 Sep','sale · Street photography · R. Iyer','SR-1041','+ ₹959.20'],['16 Sep','fee · 20 % platform','SR-1041','− ₹239.80',1],['12 Sep','payout · UTR 4211…88','—','− ₹12,000.00',1],['11 Sep','sale · Wheel pottery · K. Menon','SR-1038','+ ₹1,199.20'],['11 Sep','fee · 20 % platform','SR-1038','− ₹299.80',1]].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="num ${r[4]?'neg':''}">${r[3]}</td></tr>`).join('')}</table>
+      <div class="c-hand" style="margin-top:12px">every sale writes two lines — yours and the platform's — in one transaction. refunds write them backwards.</div></div>
+      <aside><div class="c-sticky sm"><div class="c-hand">balance</div><div class="pr" style="font-size:36px">₹8,217<small>available</small></div><ul><li>pending payout: ₹0</li><li>paid to date: ₹24,000</li><li>this month: 14 sales</li></ul><a class="c-btn">Request a payout</a><div style="font-size:12px;margin-top:8px;color:var(--ink2)">≥ ₹500 · admin pays by bank transfer · v2</div></div></aside></div>
+  </div></div>`,
+  s14: () => `<div class="dsk c-stu">${snav('Admin',ADMIN,'Creators')}<div class="c-smain"><h1>Creators</h1>
+    <div class="c-tbl"><div class="hd">Applications <span class="c-hand" style="font-size:18px">2 waiting</span></div>
+      ${[[3,'Rohan Shetty','Yoga · Indiranagar · "Four weeks of 20-minute mornings"','applied 2 d ago'],[5,'Karthik Rao','Music · Basavanagudi · "Fingerstyle from zero"','applied 5 h ago']].map(a=>`<div class="r"><div class="av">${im(cr(a[0]).img)}</div><div>${a[1]}<small>${a[2]} · ${a[3]}</small></div><span class="c-pill ok">approve ✓</span><span class="c-pill">reject ✗ (with a note)</span></div>`).join('')}</div>
+    <div class="c-tbl"><div class="hd">Approved creators</div>
+      ${[0,1,2,4].map(i=>`<div class="r"><div class="av">${im(cr(i).img)}</div><div>${cr(i).name}<small>${cr(i).area} · ${i===0?'2 courses · ₹8,217 balance':i===4?'1 course · ₹3,104 balance':'1 course · ₹0 balance'}</small></div><span class="c-stampi ok">approved</span><span class="c-hand" style="font-size:17px;color:var(--muted)">view →</span></div>`).join('')}</div>
+  </div></div>`,
+  s15: () => `<div class="dsk c-stu">${snav('Admin',ADMIN,'Video jobs')}<div class="c-smain"><h1>Courses &amp; video jobs</h1>
+    <div class="c-tbl"><div class="hd">All courses</div>
+      ${COURSES.map((c,i)=>`<div class="r"><div class="av">${im(c.img)}</div><div>${c.title}<small>${cr(c.c).name} · ${c.enrolled.toLocaleString('en-IN')} students</small></div><span class="c-stampi ${i===2?'grey':'ok'}">${i===2?'draft':'published'}</span><span class="c-pill">${i===2?'—':'take down'}</span></div>`).join('')}</div>
+    <div class="c-tbl"><div class="hd">Video jobs <span class="c-hand" style="font-size:18px">last 24 h · Blob 612 of 1,024 MB</span></div>
+      <div class="r"><div class="av">${im('hero-studio')}</div><div>The first pull<small>Wheel pottery · claimed 12:04:41 · attempt 1 · runner ubuntu-24.04</small></div><span class="c-pill">processing · 0:48</span><span></span></div>
+      <div class="r"><div class="av">${im('cover-guitar')}</div><div>Thumb independence<small>Fingerstyle guitar · attempt 2 of 3 · ffmpeg: unsupported codec (hevc)</small></div><span class="c-pill">failed</span><span class="c-pill ok">retry ↻</span></div>
+      <div class="r"><div class="av">${im('cover-watercolour')}</div><div>Wet-on-wet skies<small>Watercolour landscapes · ready in 1:52 · 3 renditions · 26 segments</small></div><span class="c-pill ok">ready</span><span></span></div>
+    </div></div></div>`,
+  s19: () => `<div class="dsk c-page tall">${nav()}
+    <div class="c-cpage"><div class="c-pol"><span class="c-tape" style="left:30px"></span><div class="im" style="aspect-ratio:3/4">${im(cr(0).img)}</div><span class="cap">${cr(0).name}, at the wheel</span></div>
+      <div><div class="c-hand">teaches · Jayanagar, Bengaluru · 754 students</div><h1 style="font-size:52px;font-variation-settings:'opsz' 144">${cr(0).name}</h1><p class="c-sub">${cr(0).bio} Fifteen years on the wheel, six of them teaching from a garage studio behind 4th Block.</p>
+        <div class="c-h2">Courses <em>two published</em></div>
+        ${[0,4].map(i=>COURSES[i]).map(c=>`<div class="c-brow" style="grid-template-columns:160px 1fr"><div class="im">${im(c.img)}</div><div><b style="font-size:22px">${c.title}</b><div class="meta">${c.lessons} lessons · ${c.mins} min · ${c.level}</div><div class="ld"><span>buy</span><span class="dots"></span><span>${rs(c.price)}</span></div></div></div>`).join('')}
+      </div></div></div>`,
+  s20a: () => `<div class="dsk c-play"><div><div class="c-vwrap" style="position:relative"><div class="c-lock"><div class="c-sticky"><div class="c-hand">this lesson is in the paid section</div><div class="pr" style="font-size:32px">₹1,499<small>once</small></div><a class="c-btn">Buy this course</a><a class="c-btn line">Watch lesson 1 free</a></div></div><div class="c-vid">${im('hero-studio')}</div></div>
+      <h1>The first pull</h1><div class="meta">section 2 · lesson 3 · 2:31 · not in your library</div><p>You can watch the preview lesson (Wedging and centring) without buying. The rest unlocks with the course — the key server won't hand out a key until you're enrolled, so nothing plays even with the segment URLs.</p></div>
+    <aside class="c-notes"><h3>Contents</h3><div class="cl">${LESSONS.map((l,i)=>`<div class="li"><i>${l.pv?'▶':'🔒'}</i>${l.t}<span style="margin-left:auto;color:var(--muted);font-size:12px">${l.d}</span></div>`).join('')}</div></aside></div>`,
+  s20b: () => `<div class="dsk c-page tall">${nav()}<div class="c-torn"><span class="c-stampi big">taken down</span><h1 style="margin-top:20px">This page was torn out.</h1><p>The course isn't available any more, or the link is wrong.<br>Try <span style="font-family:'Caveat';font-size:21px;color:var(--pen,#2B3A8C)">browse →</span> or <span style="font-family:'Caveat';font-size:21px;color:var(--pen,#2B3A8C)">my learning →</span></p></div>
+    <div style="width:700px;margin:80px auto 0"><div class="c-h2">Other states <em>same page, other days</em></div>
+      <div class="c-empty"><b>Nothing in your notebook yet.</b><span>buy a course or start a free one →</span></div>
+      <div class="c-index" style="margin-top:16px"><b>Lesson 4 is still being processed</b><span>the creator uploaded it 2 minutes ago — our worker is making the 240p / 480p / 720p ladder. It'll appear here on its own.</span><div class="chips" style="display:flex;gap:8px;margin-top:10px"><span class="chip on" style="font-family:'Onest';font-size:11px;border-radius:3px"><i></i>240p</span><span class="chip run" style="font-family:'Onest';font-size:11px;border-radius:3px"><i></i>480p</span><span class="chip" style="font-family:'Onest';font-size:11px;border-radius:3px"><i></i>720p</span></div></div>
+    </div></div>`,
+};
+
+const SCREENS = [
+  ['Student'],
+  ['s1d','S1 · Home','desktop','Hero as a notebook page, index tabs, three new courses as polaroids, free-to-start list (curriculum draw), the makers as index cards.',()=>S.s1d()],
+  ['s1m','S1 · Home','phone','The same page at 390 px: margin at 36 px, index tabs, entries with pasted photos.',()=>C.home(),'m'],
+  ['s2','S2 · Browse','desktop','Category index tabs; every course as an entry with a taped photo and a dotted leader to the price.',()=>S.s2()],
+  ['s3','S3 · Course page','desktop','Chapter title, taped preview poster, contents with dotted leaders (curriculum draw), sticky-note price, the creator on an index card.',()=>C.course()],
+  ['s4d','S4 · Player','desktop','Video taped onto the page; resume glide with a sticky-note toast; your notes and the contents checklist beside it.',()=>C.player()],
+  ['s4m','S4 · Player','phone','Video full-width on top, then the lesson, contents and notes on the page.',()=>S.s4m(),'m'],
+  ['s5','S5 · Buy sheet','desktop','The course page dims; the price sticky note becomes the sheet with what you get and the Razorpay button (test mode).',()=>S.s5()],
+  ['s6d','S6 · My learning','desktop','Checklist of courses with highlighter progress bars, the certificate printing out, account fields.',()=>S.s6d()],
+  ['s6m','S6 · My learning','phone','Checklist, certificate, account.',()=>C.me(),'m'],
+  ['s7','S7 · Certificate + Verify','desktop','The PDF as a double-ruled certificate with the seal and the name underlined in red; the public verify card below.',()=>S.s7()],
+  ['s8','S8 · Sign in / Apply','desktop','Underlined fields, three demo index cards (student · creator · admin), the creator application.',()=>S.s8()],
+  ['s19','S19 · Creator page','desktop','Portrait as a polaroid, bio, the creator\'s courses as entries.',()=>S.s19()],
+  ['Creator'],
+  ['s9','S9 · Studio: courses','desktop','Rows with taped thumbnails, status stamps, lessons ready / total, students, revenue after the fee.',()=>S.s9()],
+  ['s10','S10 · Studio: course editor','desktop','Underlined details; sections as index cards with lesson rows (drag, duration, video state chip, preview toggle); publish checklist on a sticky note.',()=>S.s10()],
+  ['s11u','S11 · Lesson: upload','desktop','Drop zone in pencil dashes; the client upload goes straight to storage with a pencil-line progress bar.',()=>S.s11u()],
+  ['s11','S11 · Lesson: processing → ready','desktop','THE signature: chips tick 240p → 480p → 720p, the poster develops, the stamp flips to ready, Preview rises.',()=>C.studio()],
+  ['s11f','S11 · Lesson: failed','desktop','The worker\'s error in red pencil, attempt count, retry / replace.',()=>S.s11f()],
+  ['s12','S12 · Studio: earnings','desktop','The ledger as a ruled table — sale and fee lines per order, payouts in red; balance on a sticky note.',()=>S.s12()],
+  ['Admin'],
+  ['s13','S13 · Admin: dashboard','desktop','Tiles as ruled figures, applications and video jobs as ledger rows.',()=>C.admin()],
+  ['s14','S14 · Admin: creators','desktop','Applications with approve / reject, the approved list with stamps.',()=>S.s14()],
+  ['s15','S15 · Admin: courses + jobs','desktop','Every course with takedown; jobs by state with attempts, the ffmpeg error and retry; Blob usage.',()=>S.s15()],
+  ['States'],
+  ['s20a','S20 · Not enrolled','desktop','The locked lesson: video covered by the price sticky; preview lesson stays open; the key server explains itself.',()=>S.s20a()],
+  ['s20b','S20 · Torn out · empty · processing','desktop','Takedown 404 as a torn page with a stamp; empty notebook; a lesson still processing from the student\'s side.',()=>S.s20b()],
+];
+
+const tabsEl=document.getElementById('tabs'), panelsEl=document.getElementById('panels');
+const ids=[];
+SCREENS.forEach(s=>{
+  if(s.length===1){ const g=document.createElement('span'); g.className='tab grp'; g.textContent=s[0]; tabsEl.appendChild(g); return; }
+  const [id,title,kind,desc,fn,m]=s; ids.push(id);
+  const b=document.createElement('button'); b.className='tab'; b.dataset.id=id; b.innerHTML=title.replace(' · ',' <span style="opacity:.55">·</span> ')+(m?' <kbd>📱</kbd>':''); tabsEl.appendChild(b);
+  const sec=document.createElement('section'); sec.className='panel'; sec.id='p-'+id;
+  const inner = m ? `<div class="scaler phone-scaler"><div class="scaled"><div class="phone"><div class="notch"></div><div class="screen"><div class="stage d-c">${fn()}</div></div></div></div></div>`
+                  : `<div class="scaler"><div class="scaled"><div class="desktop"><div class="stage d-c">${fn()}</div></div></div></div>`;
+  sec.innerHTML=`<div class="shead"><div><h2>${title}</h2><p>${desc}</p></div><span class="rt">${kind==='phone'?'390 px phone':'1280 px desktop, scaled to fit'}</span></div><div class="one">${inner}</div>`;
+  panelsEl.appendChild(sec);
+});
+function fit(){ document.querySelectorAll('.panel.on .scaler').forEach(sc=>{ const inner=sc.querySelector('.scaled'); const base=sc.classList.contains('phone-scaler')?410:1280; const k=Math.min(1,sc.clientWidth/base); inner.style.transform=`scale(${k})`; sc.style.height=(inner.firstElementChild.offsetHeight*k+20)+'px'; }); }
+/* motion engine (subset used here) */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const timers = new WeakMap(); function clearT(el){ (timers.get(el)||[]).forEach(clearTimeout); timers.set(el,[]); } function later(el,fn,ms){ const t=setTimeout(fn, reduced?0:ms); timers.get(el).push(t); }
+const M = {
+  develop(el){ clearT(el); const ch=[...el.querySelectorAll('.chip')], img=el.querySelector('.dev-img'), rise=el.querySelectorAll('.rise'), st=el.querySelectorAll('[data-status]'), stamp=el.querySelector('[data-stamp]');
+    ch.forEach(c=>c.classList.remove('on','run')); if(img){img.classList.remove('go'); void img.offsetWidth;} rise.forEach(r=>r.classList.remove('go')); st.forEach(s=>s.textContent='Processing…'); if(stamp){stamp.textContent='processing'; stamp.style.transform='rotate(-8deg)';}
+    ch.forEach((c,i)=>{ later(el,()=>c.classList.add('run'),300+i*800); later(el,()=>{c.classList.remove('run');c.classList.add('on')},1000+i*800); });
+    later(el,()=>{ if(img) img.classList.add('go'); st.forEach(s=>s.textContent='Ready · 2:31'); if(stamp){ stamp.textContent='ready'; stamp.style.color='#2E7D4F'; stamp.style.borderColor='#2E7D4F'; stamp.animate([{transform:'scale(1.4) rotate(-8deg)',opacity:.3},{transform:'scale(1) rotate(-8deg)',opacity:.85}],{duration:reduced?0:450,easing:'cubic-bezier(.2,1.4,.4,1)',fill:'forwards'}); } rise.forEach(r=>r.classList.add('go')); }, 1100+ch.length*800);
+  },
+  glide(el){ el.querySelectorAll('.track,.toast').forEach(x=>{ x.classList.remove('go'); void x.offsetWidth; x.classList.add('go'); }); },
+  draw(el){ el.classList.remove('go'); void el.offsetWidth; el.classList.add('go'); },
+  print(el){ el.classList.remove('go'); void el.offsetWidth; el.classList.add('go'); },
+};
+function runMotions(root){ root.querySelectorAll('[data-m]').forEach(el=>{ if(!timers.has(el)) timers.set(el,[]); const fn=M[el.dataset.m]; if(fn) fn(el); }); }
+function show(id){ tabsEl.querySelectorAll('.tab[data-id]').forEach(t=>t.setAttribute('aria-selected',t.dataset.id===id)); document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+id)); try{ history.replaceState(null,'','#'+id); localStorage.setItem('sr-screen',id);}catch(e){} requestAnimationFrame(()=>{ fit(); runMotions(document.getElementById('p-'+id)); }); }
+tabsEl.addEventListener('click',e=>{ const t=e.target.closest('.tab[data-id]'); if(t) show(t.dataset.id); });
+document.addEventListener('keydown',e=>{ const cur=ids.indexOf((location.hash||'#').slice(1)); if(e.key==='ArrowRight') show(ids[(cur+1)%ids.length]); if(e.key==='ArrowLeft') show(ids[(cur-1+ids.length)%ids.length]); });
+window.addEventListener('resize',fit);
+let start=ids[0]; try{ start=localStorage.getItem('sr-screen')||start; }catch(e){} const hs=location.hash.slice(1); if(ids.includes(hs)) start=hs; if(!ids.includes(start)) start=ids[0];
+show(start); window.addEventListener('load',()=>{ fit(); setTimeout(fit,600); });
+})();
+</script>

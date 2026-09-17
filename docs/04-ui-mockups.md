@@ -1,6 +1,6 @@
 # Skillroom — UI Mockups
 
-**Lifecycle step:** 4 of 17 (UX companion to the technical design) · **Brief locked:** 2026-09-17 · **Variants:** `mockups/direction-variants.html` (six directions × six screens, eight live motion candidates), published at https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi · **Chosen:** pending Viraj's letter
+**Lifecycle step:** 4 of 17 (UX companion to the technical design) · **Brief locked:** 2026-09-17 · **Variants:** `mockups/direction-variants.html` (six directions × six screens, eight live motion candidates), published at https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi · **Chosen: C · Notebook** (Viraj, 2026-09-17)
 **Pairs with:** [03-user-flows.md](03-user-flows.md) — one mockup per v1 screen (S1–S15, S19, S20) after the direction is chosen.
 **Files:** `mockups/landing.html` (exists, already ported to `web/`) → `mockups/direction-variants.html` (S3 course page + S4 player + S11 studio processing + S13 admin at desktop, S1 home + S6 my learning on a 390 px phone, six directions) → `mockups/screens.html` (every v1 screen in the chosen direction) → `mockups/tracker.html` (built by `mockups/tracker-build.py`). Photos: CC from Wikimedia Commons in `mockups/img/`, credits in `mockups/img/CREDITS.md`.
 **Published:** [Direction variants](https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi) · Screens and Tracker — links added when published.
@@ -40,8 +40,37 @@ Each tab: **S3 course page** (desktop 1280, scaled) beside **S1 home** on a 390 
 
 `prefers-reduced-motion` respected in all.
 
-## Chosen direction
-_To be filled when Viraj picks a letter: idea, tokens (→ `web/src/app/globals.css`), motion specs with reduced-motion fallbacks, browser surfaces._
+## Chosen direction — C · Notebook (locked 2026-09-17)
+**Idea:** the course is a notebook you are keeping. Ruled paper with a red margin, a Fraunces heading like a chapter title, Caveat handwriting for the things a person would write (annotations, "continue →", section names), photos and the video *taped* onto the page, the price on a sticky note, the curriculum as a table of contents with dotted leaders. Progress is a highlighter mark; state is a rubber stamp. The studio and admin are the same notebook at a tidier density — ledger rules, index cards, stamps for status. Nothing floats; everything is on the page.
+
+### Tokens (→ `web/src/app/globals.css`)
+| Token | Value | Use |
+|---|---|---|
+| `--paper` / `--panel` / `--tile` | `#FBF9F3` / `#FFFFFF` / `#EFEBE0` | page ground (with the rule) / cards, taped photos, index cards / image placeholders |
+| `--rule` · rule pitch | `#D9E3EC` · `28px` | `repeating-linear-gradient(transparent 0 27px, var(--rule) 27px 28px)` on the page; body line-height 28 px so text sits on the lines |
+| `--margin` | `#E0655F` | the 2 px red margin line, handwriting accents, stamps, destructive |
+| `--ink` / `--ink2` / `--muted` | `#1C2833` / `#3E4A55` / `#7A8590` | text / secondary / labels (≥ 4.5:1 on paper) |
+| `--line` | `#CBD6E0` | hairlines, dotted leaders, index-card borders |
+| `--hl` · `--sticky` | `#FFE86B` · `#FFF3A3` | highlighter (selected, current lesson, chips) · sticky notes (price, resume toast, publish checklist) |
+| `--pen` | `#2B3A8C` | blue-pen notes (student notes, annotations) |
+| `--video` | `#0E141A` | the video surface; the player page stays on paper around it |
+| radii | 0–4 px (paper), 3 px stamps, 44 px phone | nothing rounded beyond a photo corner |
+| type | **Fraunces** 600 (`opsz` 144 for h1 ≥ 44 px, 96 below) · **Onest** 400–700 body at 15–16 px / 28 px · **Caveat** 500–600 at 18–24 px for handwriting · tabular numerals for durations, prices, codes | `next/font/google`, `display: swap` |
+| grid | course page 1fr / 330 px; player 1fr / 320 px notes; studio 200 px / 1fr; phone: one column with the margin at 36 px | |
+
+### Motion (all with `prefers-reduced-motion` fallbacks)
+| Moment | Spec | Reduced |
+|---|---|---|
+| **Develop + Stamp (signature, studio S11)** | rendition chips tick 240p → 480p → 720p (each 800 ms, dot blinks while running); on `ready` the poster develops from blur 22 px / saturate .2 to sharp over 900 ms `cubic-bezier(.2,.7,.2,1)`, the red rubber stamp flips from *processing* to *ready* with a 2-frame overshoot (scale 1.4 → 1, rotate −8°), "Preview it" rises 10 px | chips set, poster fades in, stamp swaps text |
+| Curriculum draw (S3, S1) | the margin-side track draws down 800 ms; rows rise in with 150 ms stagger; completed ticks are stroked (dashoffset 20 → 0, 400 ms) | rows visible, ticks drawn |
+| Resume glide (S4) | scrub track lights to the resume point 600 ms, the head glides with overshoot; the toast is a **sticky note** sliding up from the controls with a 3-s countdown ring | note only, no auto-seek |
+| Certificate print (S7, S6) | the certificate feeds up out of a slot 800 ms, the seal stamps at 900 ms (`cubic-bezier(.2,1.4,.4,1)`), the name underlines with a red pen stroke | static with the seal |
+| Taped-in entrance | photos and the video enter rotated −2° → −1° / 0° with a 300 ms settle; tape strips are static | none |
+| Highlighter | selecting a tab / chip / current lesson paints a highlighter band left → right 200 ms | instant |
+| Stamps for state | published / draft / takedown / failed are stamps, rotated −8°, no animation — a state, not an event | — |
+
+### Browser surfaces
+`::selection` highlighter yellow with ink · scrollbar: paper track, ink thumb, 10 px, square · focus ring 3 px `--margin`, offset 2 px · `caret-color` pen blue · `theme-color` `#FBF9F3` · favicon = the mark with a red margin stroke.
 
 ## Screens (`mockups/screens.html`)
-_Built after the direction is chosen: every v1 screen from the screen index plus S20 states; published as the Screens artifact._
+Every v1 screen from the screen index in Notebook plus S20 states: S1 home (desktop + phone), S2 browse, S3 course page, S4 player (desktop + phone, resume moment), S5 buy sheet, S6 my learning (desktop + phone), S7 certificate + verify, S8 sign in / apply with the three demo cards, S9 studio courses, S10 course editor, S11 lesson + video (upload → processing → ready, and failed), S12 earnings, S13 admin dashboard, S14 admin creators, S15 admin courses + jobs, S19 creator page, S20 states (not enrolled, processing, takedown 404, empty). Published as the Screens artifact — link at the top of this doc.
