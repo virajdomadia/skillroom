@@ -1,9 +1,9 @@
 # Skillroom — UI Mockups
 
-**Lifecycle step:** 4 of 17 (UX companion to the technical design) · **Brief locked:** 2026-09-17 · **Variants:** `mockups/direction-variants.html` (six directions × six screens, eight live motion candidates) — published link below once live · **Chosen:** pending Viraj's letter
+**Lifecycle step:** 4 of 17 (UX companion to the technical design) · **Brief locked:** 2026-09-17 · **Variants:** `mockups/direction-variants.html` (six directions × six screens, eight live motion candidates), published at https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi · **Chosen:** pending Viraj's letter
 **Pairs with:** [03-user-flows.md](03-user-flows.md) — one mockup per v1 screen (S1–S15, S19, S20) after the direction is chosen.
 **Files:** `mockups/landing.html` (exists, already ported to `web/`) → `mockups/direction-variants.html` (S3 course page + S4 player + S11 studio processing + S13 admin at desktop, S1 home + S6 my learning on a 390 px phone, six directions) → `mockups/screens.html` (every v1 screen in the chosen direction) → `mockups/tracker.html` (built by `mockups/tracker-build.py`). Photos: CC from Wikimedia Commons in `mockups/img/`, credits in `mockups/img/CREDITS.md`.
-**Published:** Direction variants · Screens · Tracker — links added in this doc and in [07-plan.md](07-plan.md) when published.
+**Published:** [Direction variants](https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi) · Screens and Tracker — links added when published.
 
 ## Brief
 **Style:** the landing set a first identity — **Onest**, paper `#F7F8F4`, moss `#3E6B48`, sage `#CFE0D2`, apricot `#F4B183`, 14 px radius — calm and craft-like. It is one candidate (A), not the answer. Course platforms live or die on two screens: **the course page** (does this feel worth ₹1,499?) and **the player** (does it get out of the way?) — plus one screen only this project has: **the studio's processing moment**, where a creator watches their upload become a stream. The variants must be genuinely different UI styles (layout DNA, type, surface, density), not chrome swaps of one system; the admin is the same system at a calmer density.
