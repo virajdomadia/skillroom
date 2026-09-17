@@ -1,0 +1,47 @@
+# Skillroom — UI Mockups
+
+**Lifecycle step:** 4 of 17 (UX companion to the technical design) · **Brief locked:** 2026-09-17 · **Variants:** `mockups/direction-variants.html` (six directions × six screens, eight live motion candidates) — published link below once live · **Chosen:** pending Viraj's letter
+**Pairs with:** [03-user-flows.md](03-user-flows.md) — one mockup per v1 screen (S1–S15, S19, S20) after the direction is chosen.
+**Files:** `mockups/landing.html` (exists, already ported to `web/`) → `mockups/direction-variants.html` (S3 course page + S4 player + S11 studio processing + S13 admin at desktop, S1 home + S6 my learning on a 390 px phone, six directions) → `mockups/screens.html` (every v1 screen in the chosen direction) → `mockups/tracker.html` (built by `mockups/tracker-build.py`). Photos: CC from Wikimedia Commons in `mockups/img/`, credits in `mockups/img/CREDITS.md`.
+**Published:** Direction variants · Screens · Tracker — links added in this doc and in [07-plan.md](07-plan.md) when published.
+
+## Brief
+**Style:** the landing set a first identity — **Onest**, paper `#F7F8F4`, moss `#3E6B48`, sage `#CFE0D2`, apricot `#F4B183`, 14 px radius — calm and craft-like. It is one candidate (A), not the answer. Course platforms live or die on two screens: **the course page** (does this feel worth ₹1,499?) and **the player** (does it get out of the way?) — plus one screen only this project has: **the studio's processing moment**, where a creator watches their upload become a stream. The variants must be genuinely different UI styles (layout DNA, type, surface, density), not chrome swaps of one system; the admin is the same system at a calmer density.
+
+**The product is the video.** Posters must be the biggest thing on every student screen; chrome is type and rules. The player page is dark or near-dark in every direction (video needs it); everything else is free. Studio and admin are desktop.
+
+**Real content:** the seed — six courses (wheel pottery, flatbreads, watercolour, yoga, street photography, fingerstyle guitar), six fictional Bengaluru creators with CC portraits, prices in ₹ (₹999–₹1,499, one free), 2 sections × 2 lessons each, one lesson mid-processing in the studio, a certificate for the demo student.
+
+## Motion candidates — live in the variant page
+| Candidate | What happens | Reduced-motion fallback |
+|---|---|---|
+| **1 · Develop** | In the studio, as the job runs, three rendition chips tick in (240p → 480p → 720p) and the poster **develops** from a blurred, desaturated frame to sharp (blur 24 → 0, saturate .2 → 1, 900 ms) when `ready`; the "Preview it" button rises under it | Chips change instantly; poster fades in |
+| **2 · Resume glide** | Opening a lesson with progress: the scrub track lights from 0 to the resume point (600 ms), the playhead glides there with a slight overshoot and a "Resume at 4:12 · from your phone" toast slides up; a 3-s ring counts down to auto-play | Toast only; no glide, no auto-play |
+| **3 · Curriculum draw** | On the course page, a vertical track draws down the curriculum (stroke-dashoffset, 700 ms) and each lesson row fades in as the line reaches it; completed lessons get a stroked tick | Rows appear together |
+| **4 · Certificate print** | At 100 %, the certificate card feeds out from a slot (translateY, 800 ms), then the seal stamps in (scale 1.6 → 1, rotate −6° → 0) and the student's name is stroked in | Card fades in with the seal |
+| **5 · Ladder** | The processing panel shows three horizontal bars — one per rendition — filling segment by segment (6-s chunks) as the worker reports; the bitrate labels count up | Bars set to their final width |
+| **6 · Chapter count** | Lesson numbers render as rolling counters (01 → 02) when moving to the next lesson; section headers wipe in from a rule | Numbers change instantly |
+| **7 · Spring pop** | Progress rings fill with a spring on the course card and in the sidebar when a lesson completes; the tick pops (scale .6 → 1.15 → 1) | Ring set to its value; tick appears |
+| **8 · Poster scrub** | Hovering a course card scrubs the poster through four stills (the sprite) with a thin progress hairline | Static poster |
+
+Recommendation: **1 · Develop** as the signature (it is the wow moment, and only this project has it) + **2 · Resume glide** in the player + one catalogue touch (**3** or **8**) per direction.
+
+## Variant page (`mockups/direction-variants.html`) — six directions, six screens each
+Each tab: **S3 course page** (desktop 1280, scaled) beside **S1 home** on a 390 px phone; **S4 player** (desktop) beside **S6 my learning** (phone); **S11 studio: lesson processing** (desktop) beside **S13 admin dashboard** (desktop); then a strip with the eight motion candidates live in that direction's idiom. Keys 1–6 switch tabs; every direction carries the same photos and copy.
+
+| Direction | Style (layout DNA · surface · type) | Demonstrates |
+|---|---|---|
+| **A · Workshop** | The landing's craft-school system: paper, moss, sage, apricot; Onest; 14 px radius; soft cards; poster-left / sticky buy card; sidebar player | Develop + Curriculum draw |
+| **B · Screening room** | Near-black, warm white, amber; Sora headings; full-bleed posters with gradients; browse as horizontal rails; course page as a backdrop with an episode list; the player is the page | Resume glide + Poster scrub |
+| **C · Notebook** | Ruled paper with a red margin, ink, highlighter yellow; Fraunces headings, Caveat annotations; index-card sections; curriculum as a table of contents with dotted leaders; the video sits on the page with a notes column | Curriculum draw + Certificate print |
+| **D · Blueprint** | Blueprint blue on drafting paper with a grid; Space Grotesk + JetBrains Mono; dimension lines, corner marks, dense data; the pipeline is a drawn diagram; player with segment ticks | Ladder + Chapter count |
+| **E · Journal** | Editorial magazine: off-white, black, oxblood; Instrument Serif headings at 72 px, numbered chapters, thin rules, pull quotes, generous whitespace; browse as an editorial list; player in reading mode | Chapter count + Certificate print |
+| **F · Playground** | Bright and chunky: cream, cobalt, tangerine, lime; Bricolage Grotesque; 24 px radius, 2 px borders, stickers, progress rings, streaks; bento tiles | Spring pop + Develop |
+
+`prefers-reduced-motion` respected in all.
+
+## Chosen direction
+_To be filled when Viraj picks a letter: idea, tokens (→ `web/src/app/globals.css`), motion specs with reduced-motion fallbacks, browser surfaces._
+
+## Screens (`mockups/screens.html`)
+_Built after the direction is chosen: every v1 screen from the screen index plus S20 states; published as the Screens artifact._
