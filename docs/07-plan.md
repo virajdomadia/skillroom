@@ -1,7 +1,7 @@
 # Skillroom — Development Plan
 
 **Lifecycle step:** 7 of 17 · **Written:** 2026-09-17 · **Inputs:** [03-requirements.md](03-requirements.md), [04-technical-design.md](04-technical-design.md), [06-data-and-api.md](06-data-and-api.md).
-**Tracker:** row status lives in the tracker artifact (link added when published; rebuild the page with `python mockups/tracker-build.py`).
+**Tracker:** row status lives at https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6 (updated per milestone; rebuild the page with `python mockups/tracker-build.py`).
 **Budget:** v1 ≈ 16 h · v2 ≈ 11 h · v3 ≈ 8 h · v4 ≈ 3 h. v1 runs the whole video pipeline and the key server from milestone 1.0, so v2 and v3 add money shapes and telemetry, and v4 adds a surface — never a second engine. **Cadence:** evenings/weekends; each row = one branch + one PR, squash-merged, and **every PR shows something in the browser**. Milestones end deployed. **Build starts after Offcut** (order 1 → 2 → 4 → 5 → 3 → 6).
 
 **Lean rules in force** (2026-09-15): setup is the minimum to deploy both apps with plain CI; no observability, contract gates, e2e workflows or tracker updates per PR; review findings fixed on the same branch; tests only from 04 §13. Hours saved go to the player, the studio's processing moment and the seed videos. **Accounts and keys are created just-in-time** — in the row that first needs them, never in a setup batch: **Neon in S2; Vercel Blob, the GitHub fine-grained dispatch token and the three Actions secrets in S3; Razorpay in F3; Resend in L4.** Videos are CC from Wikimedia Commons, fetched by script in S3.

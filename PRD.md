@@ -4,7 +4,7 @@
 **Name:** Skillroom · *learn from people who do it*
 **URL:** https://skillroom.virajdomadia.com (landing live at https://skillroom-viraj.vercel.app until DNS)
 **Slot:** #5 · Budget ~38 h (v1 16 · v2 11 · v3 8 · v4 3) · Build fourth
-**Live artifacts:** Tracker, Screens and Direction variants — links in [docs/04-ui-mockups.md](docs/04-ui-mockups.md) and [docs/07-plan.md](docs/07-plan.md) once published · Landing: https://skillroom-viraj.vercel.app
+**Live artifacts:** [Tracker](https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6) (plan rows with status, all docs, mockups, project facts) · [Screens](https://claude.ai/artifact/U7Uy3zAL3dnPWmffQnk6fB) (every v1 screen, direction C · Notebook) · [Direction variants](https://claude.ai/artifact/JK9cTzwVjD4GrEqV36WPXi) (A–F, C chosen) · Landing: https://skillroom-viraj.vercel.app
 
 ## One-liner
 A complete course platform with three sides — **students** who buy or subscribe, watch with resume-across-devices, pass quizzes and earn a certificate; **creators** (fictional Bengaluru coaches) who upload video and get paid; a **platform admin** who approves creators and pays out — where the video is ours end to end: **upload → an ffmpeg worker → encrypted adaptive HLS → a key server that only answers for enrolled students**. No Mux, no Stream, ₹0 per play.
@@ -80,7 +80,7 @@ Live classes · DRM (Widevine / FairPlay) · auto-captions or any paid AI · cou
 - Certificate issues exactly once at 100 % (v2: and all quizzes passed); `/verify/{code}` is public and correct.
 - Lighthouse mobile ≥ 90 perf / 100 a11y / 100 SEO on home, browse and course pages (the player page excluded from the perf budget; posters via `next/image`, no CLS).
 - v4: on an Android phone in airplane mode, a downloaded lesson plays from the first tap; the lease expiry is enforced.
-- A visible frontend signature (chosen in step 4, [docs/04-ui-mockups.md](docs/04-ui-mockups.md)): the processing-to-playable moment in the studio and the resume moment in the player, themed browser surfaces, reduced-motion fallbacks.
+- A visible frontend signature (chosen in step 4, direction **C · Notebook**, [docs/04-ui-mockups.md](docs/04-ui-mockups.md)): **Develop + Stamp** in the studio (renditions tick in, the poster develops, the stamp flips to *ready*), **Resume glide** with a sticky-note toast in the player, curriculum draw and certificate print, themed browser surfaces, reduced-motion fallbacks.
 
 ## Resolved questions
 - *Mux / Cloudflare Stream or our own?* Our own: Blob + ffmpeg worker on Actions + AES-128 HLS + API key server (Viraj, 2026-09-17, fork 1). Mux would hide the thing the project proves; Stream is not free.

@@ -2,7 +2,7 @@
 
 **Learn from people who do it.** A complete course platform with three sides — students who buy or subscribe, watch with resume-across-devices, pass quizzes and earn a certificate; creators who upload video and get paid; a platform admin — on our own video stack: upload → an ffmpeg worker → encrypted adaptive HLS → a key server that only answers for enrolled students.
 
-> Status: lifecycle steps 1–7 in progress (2026-09-17) — see [PRD.md](PRD.md) and [docs/](docs/). Next: pick the UI direction, then step 8 Project Setup, after Offcut. One of six portfolio projects by [Viraj Domadia](https://virajdomadia.vercel.app). **Live (landing page):** https://skillroom-viraj.vercel.app — will move to `skillroom.virajdomadia.com` later.
+> Status: lifecycle steps 1–7 complete (2026-09-17) — see [PRD.md](PRD.md), [docs/](docs/), the [tracker](https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6) and the [screens](https://claude.ai/artifact/U7Uy3zAL3dnPWmffQnk6fB) (direction C · Notebook). Next: step 8 Project Setup, after Offcut. One of six portfolio projects by [Viraj Domadia](https://virajdomadia.vercel.app). **Live (landing page):** https://skillroom-viraj.vercel.app — will move to `skillroom.virajdomadia.com` later.
 
 ## What it proves
 Owned video pipeline (ffmpeg worker on free compute → HLS ladder → AES-128 segments → API key server as the authorization boundary) · resume across devices · three-role RBAC · Razorpay one-off purchase (v1) and subscriptions (v2) · a creator ledger that splits the subscription pool by minutes watched (v3) · offline lessons under a key lease (v4)
@@ -21,7 +21,7 @@ api/        FastAPI backend — folder structure only until the build starts
   tests/
 PRD.md      product requirements v1 — locked decisions + versions table
 docs/       03 requirements · 03 user flows · 04 technical design · 04 ui mockups · 05 architecture · 06 data + API · 07 plan
-mockups/    landing.html (ported to web/) · direction-variants.html · img/ (CC photos, CREDITS.md)
+mockups/    landing.html (ported to web/) · direction-variants.html · screens.html · tracker.html (built by tracker-build.py) · img/ (CC photos, CREDITS.md)
 brand/      logo, mark and favicon
 ```
 
