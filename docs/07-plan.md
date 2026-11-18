@@ -77,7 +77,7 @@ Goal: both apps deployed, the worker transcoding on Actions, every seeded lesson
 ## v4 — Offline lessons (≈ 3 h) — the unique free feature 🟢
 
 ### Milestone 4.0 — Offline (≈ 3 h)
-Same core, a new place: the lesson leaves the network — encrypted offline playback with a time-limited, device-bound entitlement (48-h lease); no paid service (Viraj, 2026-09-17). A PWA has no hardware-backed protection: the lease bounds time and device, it does not hide the key from the entitled user (Viraj, 2026-11-19).
+Same core, a new place: the lesson leaves the network — encrypted offline playback with a time-limited, best-effort device-bound entitlement (48-h lease); no paid service (Viraj, 2026-09-17). A PWA has no hardware-backed protection: the lease bounds time and device, it does not hide the key from the entitled user (Viraj, 2026-11-19).
 
 | # | Part | web/ | api/ | Est. | Done when |
 |---|---|---|---|---|---|
