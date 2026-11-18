@@ -1,26 +1,21 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Skillroom — learn a skill from someone who does it for a living";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Onest, the site's typeface. Google serves TTF to non-browser user agents, which Satori needs.
-// If the fetch fails (offline build), the image still renders with the built-in fallback font.
-async function onest(weight: number): Promise<ArrayBuffer | null> {
-  try {
-    const css = await (await fetch(`https://fonts.googleapis.com/css2?family=Onest:wght@${weight}`)).text();
-    const src = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/)?.[1];
-    return src ? await (await fetch(src)).arrayBuffer() : null;
-  } catch {
-    return null;
-  }
-}
-
 export default async function Image() {
-  const [bold, medium] = await Promise.all([onest(800), onest(500)]);
+  // Onest, the site's typeface, committed under src/assets (SIL OFL 1.1) so the build never fetches fonts.
+  const dir = join(process.cwd(), "src/assets");
+  const [bold, medium] = await Promise.all([
+    readFile(join(dir, "Onest-ExtraBold.ttf")),
+    readFile(join(dir, "Onest-Medium.ttf")),
+  ]);
   const fonts = [
-    ...(bold ? [{ name: "Onest", data: bold, weight: 800 as const, style: "normal" as const }] : []),
-    ...(medium ? [{ name: "Onest", data: medium, weight: 500 as const, style: "normal" as const }] : []),
+    { name: "Onest", data: bold, weight: 800 as const, style: "normal" as const },
+    { name: "Onest", data: medium, weight: 500 as const, style: "normal" as const },
   ];
 
   return new ImageResponse(

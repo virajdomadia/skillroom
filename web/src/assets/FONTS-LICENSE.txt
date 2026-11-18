@@ -1,0 +1,5 @@
+Onest-ExtraBold.ttf and Onest-Medium.ttf are static weight instances (800, 500) of Onest,
+downloaded once from Google Fonts and used only by src/app/opengraph-image.tsx.
+
+Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
+Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
