@@ -8,6 +8,10 @@ export function Teach() {
           <div className="role"><h3>Creators</h3><ul><li>Upload a video; it's processed and streaming in minutes</li><li>Sections, lessons, resources, publish when ready</li><li>Earnings dashboard and monthly payouts</li></ul></div>
           <div className="role"><h3>Skillroom</h3><ul><li>Approves creators and keeps quality up</li><li>Handles billing, refunds and payouts</li><li>Keeps videos private to enrolled students</li></ul></div>
         </div>
+        <div className="teach-cta">
+          <p>Teaching something you do for a living? Creator applications open when Skillroom launches.</p>
+          <a className="btn btn-apricot" href="#early-access">Apply to teach</a>
+        </div>
       </div>
     </section>
   );

@@ -9,14 +9,14 @@ export function Hero() {
       </div>
 
       <div className="stage">
-        <div className="player" aria-label="Course player preview">
-          <div className="video">
+        <div className="player" role="img" aria-label="Course player preview: Figma for developers, lesson 7, Auto layout, properly, 8:12 of 12:40 watched, three earlier lessons completed">
+          <div className="video" aria-hidden="true">
             <div className="title">Figma for developers<small>Lesson 7 · Auto layout, properly</small></div>
             <div className="play" aria-hidden="true"></div>
             <div className="time">08:12 / 12:40</div>
             <div className="bar"><i></i></div>
           </div>
-          <div className="chapters">
+          <div className="chapters" aria-hidden="true">
             <div className="ch done"><span><i></i>Frames and constraints</span><small>9:10</small></div>
             <div className="ch done"><span><i></i>Components and variants</span><small>14:02</small></div>
             <div className="ch done"><span><i></i>Design tokens</span><small>11:30</small></div>
@@ -25,11 +25,13 @@ export function Hero() {
             <div className="ch"><span><i></i>Section quiz</span><small>6 questions</small></div>
           </div>
         </div>
-        <div className="cert" aria-label="Example certificate">
-          <div className="seal"></div>
-          <b>Certificate of completion</b>
-          <div className="name">Ananya Rao</div>
-          <small>Figma for developers · Sept 2026</small>
+        <div className="cert" role="img" aria-label="Example certificate of completion: Ananya Rao, Figma for developers, September 2026">
+          <div className="seal" aria-hidden="true"></div>
+          <div aria-hidden="true">
+            <b>Certificate of completion</b>
+            <div className="name">Ananya Rao</div>
+            <small>Figma for developers · Sept 2026</small>
+          </div>
         </div>
       </div>
     </section>

@@ -4,18 +4,20 @@ import { Courses } from "@/components/landing/Courses";
 import { Teach } from "@/components/landing/Teach";
 import { Pricing } from "@/components/landing/Pricing";
 import { Cta } from "@/components/landing/Cta";
+import { EarlyAccess } from "@/components/landing/EarlyAccess";
 import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Courses />
         <Teach />
         <Pricing />
         <Cta />
+        <EarlyAccess />
       </main>
       <Footer />
     </>
