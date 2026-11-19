@@ -92,14 +92,15 @@ Actors: **Student** (signed in to watch; browsing is public), **Creator** (appro
 
 ### R3-1. The pool
 - Heartbeats from subscription-sourced enrollments accumulate `watch_minutes(month, creator_id, course_id, user_id, seconds)`. `POST /admin/pool/close { month }` (once per month; idempotent): pool = Σ captured subscription charges × 80 %; per creator `share = pool × minutes_c ÷ minutes_total` → `pool_share` ledger entries + a `pool_closes` row (pool, total minutes, per-creator lines). The creator's earnings page shows "₹4,120 · 1,240 subscriber-minutes · 12.3 % of the pool".
-- **Accept (tests):** shares sum to the pool within rounding (remainder to the largest share); closing twice is a no-op; a creator with zero minutes gets no entry.
+- **Watch-time integrity** (Viraj, 2026-11-19): a heartbeat credits `watch_minutes` only if (a) the caller has a live playback session for that lesson (a `playback_sessions` row seen by the key endpoint in the last 5 min — no key, no minutes); (b) it is the first credit for that (user, lesson, 10-s server-time window) — repeats and replays in the window credit 0; (c) the credit ≤ **server-observed** seconds between this heartbeat's arrival and the last credited one × 2, and ≤ 15 s — the client's `watched_delta_s` is only an upper bound, never trusted on its own; the player enforces 2× as its maximum speed (the speed menu stops at 2×, and `playbackRate` is clamped), so 10 min of real time credits at most 20 min whatever the client reports; (d) a (user, lesson, day) total never exceeds the lesson's `duration_s` × 2. Rejected deltas still update `position_s`; they just earn no royalty.
+- **Accept (tests):** shares sum to the pool within rounding (remainder to the largest share); closing twice is a no-op; a creator with zero minutes gets no entry; `watch_integrity`: the same heartbeat sent 10× in one window credits once, a heartbeat with no live playback session credits 0, a script posting `watched_delta_s = 15` every second for an hour credits ≤ 2 × `duration_s` for the day.
 
 ### R3-2. Creator analytics
 - Heartbeats also upsert `watch_buckets(lesson_id, bucket_10s, viewers)`; `/studio/courses/[id]/analytics`: per-lesson retention curve (viewers per 10-s bucket ÷ starters), drop-off markers on the biggest falls, completion rate, average watched %.
 - **Accept:** the curve for a seeded lesson matches a SQL check; buckets never exceed starters.
 
 ### R3-3. Device limit
-- `playback_sessions(user, lesson, device_id, last_seen)`; the key endpoint upserts the caller's device and counts devices active in the last 5 min; > 2 → 403 `too_many_devices` (the player names the limit). Preview lessons exempt.
+- `playback_sessions(user, lesson, device_id, last_seen)`; the key endpoint upserts the caller's device and counts devices active in the last 5 min; > 2 → 403 `too_many_devices` (the player names the limit). Preview lessons exempt. This limits concurrent devices; it does not stop an entitled user copying the key or screen-recording (not DRM).
 - **Accept (test):** three devices within 5 min → the third is refused; after 5 min idle it is admitted.
 
 ### R3-4. Search
@@ -112,10 +113,10 @@ Actors: **Student** (signed in to watch; browsing is public), **Creator** (appro
 
 ### R4-1. PWA + download
 - `manifest.webmanifest`, service worker (app shell precached: `/learn/*` shell, fonts, icons), install prompt on the player (dismissible, remembered). **Download** on a lesson: the client fetches the 480p rendition playlist and every segment and stores them in Cache Storage under `offline/{lesson_id}`; `POST /lessons/{id}/offline-lease { device_id }` (requires `can_watch`) returns the key bytes + `lease_expires_at` (48 h) → IndexedDB. Storage used and "Remove" on `/me`.
-- **Offline playback:** when `navigator.onLine` is false or the network fails, hls.js uses a custom loader that serves playlist, segments and key from the cache / IDB; a lease past `lease_expires_at` refuses to play ("Reconnect to renew") and is deleted. Progress writes queue in IDB and flush on reconnect (last write wins by client timestamp ≤ server time).
+- **Offline playback:** when `navigator.onLine` is false or the network fails, hls.js uses a custom loader that serves playlist, segments and key from the cache / IDB; a lease past `lease_expires_at` refuses to play ("Reconnect to renew") and is deleted. This is encrypted offline playback with a time-limited, best-effort device-bound entitlement — the key sits in IndexedDB with no hardware-backed protection, so the lease enforces expiry and device for an honest client, not secrecy from the entitled user. Progress writes queue in IDB and flush on reconnect (last write wins by client timestamp ≤ server time).
 - **Accept:** on Android in airplane mode a downloaded lesson plays from the first tap; an expired lease refuses; a refund makes the next online lease refresh fail and the download is removed; iOS Safari gets the same download UI (Cache Storage works) with the install card hidden.
 
 ---
 
 ## Out of scope (all versions)
-Live classes · DRM · auto-captions / paid AI · bundles · affiliates · multi-currency · native apps · real-money billing · mobile studio · community · multiple admins · watermarking · per-lesson pricing · instalments.
+Live classes · DRM (playback is encrypted with entitlement checks and a device limit — an entitled user can still extract the key or screen-record) · auto-captions / paid AI · bundles · affiliates · multi-currency · native apps · real-money billing · mobile studio · community · multiple admins · watermarking · per-lesson pricing · instalments.

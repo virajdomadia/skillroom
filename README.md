@@ -1,11 +1,13 @@
 # Skillroom
 
-**Learn from people who do it.** A complete course platform with three sides — students who buy or subscribe, watch with resume-across-devices, pass quizzes and earn a certificate; creators who upload video and get paid; a platform admin — on our own video stack: upload → an ffmpeg worker → encrypted adaptive HLS → a key server that only answers for enrolled students.
+**A video platform where we own the pipeline** — upload → an ffmpeg worker → encrypted adaptive HLS → a key server that only answers for enrolled students — shipped as a course platform: *learn from people who do it*. Three sides: students who buy or subscribe, watch with resume-across-devices, pass quizzes and earn a certificate; creators who upload video and get paid; a platform admin.
 
-> Status: lifecycle steps 1–7 complete (2026-09-17) — see [PRD.md](PRD.md), [docs/](docs/), the [tracker](https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6) and the [screens](https://claude.ai/artifact/U7Uy3zAL3dnPWmffQnk6fB) (direction C · Notebook). Next: step 8 Project Setup, after Offcut. One of six portfolio projects by [Viraj Domadia](https://virajdomadia.com). **Live (landing page):** https://skillroom.virajdomadia.com
+No per-play platform fees (no Mux / Stream); ₹0 at demo scale within free quotas (Vercel Blob Hobby ~10 GB transfer / month, GitHub Actions free minutes) — storage, bandwidth and encoding compute are real costs at scale. Playback is encrypted with entitlement checks and a device limit — **not DRM**: an entitled user can still extract the key or screen-record.
+
+> Status: lifecycle steps 1–7 complete (2026-09-17) — see [PRD.md](PRD.md), [docs/](docs/), the [tracker](https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6) and the [screens](https://claude.ai/artifact/U7Uy3zAL3dnPWmffQnk6fB) (direction C · Notebook). Next: step 8 Project Setup — builds fifth, after Offcut (1 Tripsmith → 2 Frontrow → 3 Pagecraft → 4 Offcut → 5 Skillroom → 6 Platter). One of six portfolio projects by [Viraj Domadia](https://virajdomadia.com). **Live (landing page):** https://skillroom.virajdomadia.com
 
 ## What it proves
-Owned video pipeline (ffmpeg worker on free compute → HLS ladder → AES-128 segments → API key server as the authorization boundary) · resume across devices · three-role RBAC · Razorpay one-off purchase (v1) and subscriptions (v2) · a creator ledger that splits the subscription pool by minutes watched (v3) · offline lessons under a key lease (v4)
+Owned video pipeline (ffmpeg worker claiming jobs from a queue, on free Actions compute for the demo → HLS ladder → AES-128 segments → API key server as the authorization boundary) · resume across devices · three-role RBAC · Razorpay one-off purchase (v1) and subscriptions (v2) · a creator ledger that splits the subscription pool by minutes watched (v3) · encrypted offline playback under a time-limited, best-effort device-bound 48-h lease (v4)
 
 ## Stack
 Next.js (App Router) · TypeScript · Tailwind CSS 4 · hls.js · FastAPI · PostgreSQL (Neon) · Vercel Blob · ffmpeg (worker on GitHub Actions) · Razorpay · fpdf2 · Resend (v2) · pytest · Vercel

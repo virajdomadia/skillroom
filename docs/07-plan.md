@@ -2,7 +2,7 @@
 
 **Lifecycle step:** 7 of 17 · **Written:** 2026-09-17 · **Inputs:** [03-requirements.md](03-requirements.md), [04-technical-design.md](04-technical-design.md), [06-data-and-api.md](06-data-and-api.md).
 **Tracker:** row status lives at https://claude.ai/artifact/AxgaJ1fZ6HELpWTZuBUXz6 (updated per milestone; rebuild the page with `python mockups/tracker-build.py`).
-**Budget:** v1 ≈ 16 h · v2 ≈ 11 h · v3 ≈ 8 h · v4 ≈ 3 h. v1 runs the whole video pipeline and the key server from milestone 1.0, so v2 and v3 add money shapes and telemetry, and v4 adds a surface — never a second engine. **Cadence:** evenings/weekends; each row = one branch + one PR, squash-merged, and **every PR shows something in the browser**. Milestones end deployed. **Build starts after Offcut** (order 1 → 2 → 4 → 5 → 3 → 6).
+**Budget:** v1 ≈ 16 h · v2 ≈ 11 h · v3 ≈ 8 h · v4 ≈ 3 h. v1 runs the whole video pipeline and the key server from milestone 1.0, so v2 and v3 add money shapes and telemetry, and v4 adds a surface — never a second engine. **Cadence:** evenings/weekends; each row = one branch + one PR, squash-merged, and **every PR shows something in the browser**. Milestones end deployed. **Build starts after Offcut** — Skillroom builds fifth (order 1 Tripsmith → 2 Frontrow → 3 Pagecraft → 4 Offcut → 5 Skillroom → 6 Platter; Viraj, 2026-11-19).
 
 **Lean rules in force** (2026-09-15): setup is the minimum to deploy both apps with plain CI; no observability, contract gates, e2e workflows or tracker updates per PR; review findings fixed on the same branch; tests only from 04 §13. Hours saved go to the player, the studio's processing moment and the seed videos. **Accounts and keys are created just-in-time** — in the row that first needs them, never in a setup batch: **Neon in S2; Vercel Blob, the GitHub fine-grained dispatch token and the three Actions secrets in S3; Razorpay in F3; Resend in L4.** Videos are CC from Wikimedia Commons, fetched by script in S3.
 
@@ -65,7 +65,7 @@ Goal: both apps deployed, the worker transcoding on Actions, every seeded lesson
 ### Milestone 3.0 — The pool, analytics, teeth (≈ 8 h) 🟠🟣🟢
 | # | Part | web/ | api/ | Est. | Done when |
 |---|---|---|---|---|---|
-| A1 | **Subscription pool split by minutes watched** | S12 pool section ("₹4,120 · 1,240 subscriber-minutes · 12.3 % of the pool" per month, with the total pool); S13 admin **Close month** with a preview of the lines | heartbeats upsert `watch_minutes` (by source); `services/pool.py::close_month()` (pool = charges × 0.8, floor shares, remainder to the largest, `pool_share` entries, `pool_closes`), `POST /admin/pool/close`; seed adds 3 months of subscription charges + minutes; **test:** `pool_close` | 3 h | Closing a seeded month writes entries that sum to the pool exactly; closing twice → 409; the creator page shows the math |
+| A1 | **Subscription pool split by minutes watched** | S12 pool section ("₹4,120 · 1,240 subscriber-minutes · 12.3 % of the pool" per month, with the total pool); S13 admin **Close month** with a preview of the lines | heartbeats upsert `watch_minutes` (by source) through the R3-1 integrity rule (live playback session, once per (user, lesson, 10-s window), ≤ 2× wall-clock, daily cap — folded into this row's 3 h); `services/pool.py::close_month()` (pool = charges × 0.8, floor shares, remainder to the largest, `pool_share` entries, `pool_closes`), `POST /admin/pool/close`; seed adds 3 months of subscription charges + minutes; **test:** `pool_close`, `watch_integrity` | 3 h | Closing a seeded month writes entries that sum to the pool exactly; closing twice → 409; the creator page shows the math |
 | A2 | **Creator analytics: retention curves** | S10 analytics tab: per-lesson curve (SVG, per 10-s bucket), drop-off markers, completion %, average watched | heartbeats upsert `watch_buckets`; `GET /creator/courses/{id}/analytics` | 2 h | The curve for a seeded lesson matches a SQL check; the biggest drop-off is marked at the right second |
 | A3 | **Device limit** | S20 "Playing on 2 other devices" state in the player with the limit named | `playback_sessions` upsert in the key endpoint; count active in 5 min; `403 too_many_devices`; **test:** `device_limit` | 1.5 h | Three browsers within 5 min → the third is refused; after 5 min idle it plays |
 | A4 | **Course search + v3 close** | S2 search box (URL `q`), results with the matched field hinted | `courses.search` tsvector + GIN; `/courses?q=`; `docs/17-post-launch.md` (½ page); case study | 1.5 h | "naan" finds the flatbreads course by description alone; v3 tagged; case study live |
@@ -77,7 +77,7 @@ Goal: both apps deployed, the worker transcoding on Actions, every seeded lesson
 ## v4 — Offline lessons (≈ 3 h) — the unique free feature 🟢
 
 ### Milestone 4.0 — Offline (≈ 3 h)
-Same core, a new place: the lesson leaves the network. ₹0 per use (Viraj, 2026-09-17).
+Same core, a new place: the lesson leaves the network — encrypted offline playback with a time-limited, best-effort device-bound entitlement (48-h lease); no paid service (Viraj, 2026-09-17). A PWA has no hardware-backed protection: the lease bounds time and device, it does not hide the key from the entitled user (Viraj, 2026-11-19).
 
 | # | Part | web/ | api/ | Est. | Done when |
 |---|---|---|---|---|---|
